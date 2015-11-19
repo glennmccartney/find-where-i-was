@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="IPM-hu-qDw">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Where_Was_I" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,11 +16,164 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Okj-RD-jlF">
+                                <rect key="frame" x="150" y="416" width="300" height="21"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="dbi-GE-qAu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aA7-e7-QWo">
+                                <rect key="frame" x="235" y="451" width="130" height="30"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="130" id="ItV-3i-DK5"/>
+                                </constraints>
+                                <state key="normal" title="Mark This Location"/>
+                                <connections>
+                                    <action selector="MarkLocationButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="toU-7x-O1s"/>
+                                </connections>
+                            </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hh7-f4-YF4">
+                                <rect key="frame" x="0.0" y="44" width="600" height="364"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="600" id="PZu-IN-UXB"/>
+                                    <constraint firstAttribute="height" constant="364" id="TpV-v1-YsF"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="WUe-d5-urR"/>
+                                </connections>
+                            </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3WG-NW-GgH">
+                                <rect key="frame" x="150" y="499" width="300" height="8"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="600" id="TQK-HG-bKf"/>
+                                    <constraint firstAttribute="width" constant="300" id="w2M-A3-MTh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="7"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="aA7-e7-QWo" firstAttribute="top" secondItem="Okj-RD-jlF" secondAttribute="bottom" constant="14" id="1bP-Kf-I9x"/>
+                            <constraint firstItem="hh7-f4-YF4" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="LOh-Ad-pY8"/>
+                            <constraint firstItem="aA7-e7-QWo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OGE-B1-vhl"/>
+                            <constraint firstItem="3WG-NW-GgH" firstAttribute="top" secondItem="aA7-e7-QWo" secondAttribute="bottom" constant="18" id="Q46-nV-SXV"/>
+                            <constraint firstItem="3WG-NW-GgH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eIj-LJ-iow"/>
+                            <constraint firstItem="hh7-f4-YF4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fMv-WK-ke8"/>
+                            <constraint firstItem="Okj-RD-jlF" firstAttribute="top" secondItem="hh7-f4-YF4" secondAttribute="bottom" constant="8" id="goH-iv-Jlr"/>
+                            <constraint firstItem="Okj-RD-jlF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xzz-l8-1dE"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="dU8-mA-foh"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="addressLabel" destination="3WG-NW-GgH" id="VRw-0T-2b0"/>
+                        <outlet property="myMapView" destination="hh7-f4-YF4" id="89q-hg-gUE"/>
+                        <outlet property="statusLabel" destination="Okj-RD-jlF" id="zZo-6y-urR"/>
+                        <segue destination="igF-eF-s2S" kind="presentation" identifier="ShowPopoverFromPin" id="rm4-rB-MzY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="565" y="479"/>
+        </scene>
+        <!--Popover View Controller-->
+        <scene sceneID="Vw2-B6-p7V">
+            <objects>
+                <viewController id="igF-eF-s2S" userLabel="Popover View Controller" customClass="PopoverContentViewController" customModule="Where_Was_I" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CF0-qn-dez"/>
+                        <viewControllerLayoutGuide type="bottom" id="jqz-uc-HyP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="oFb-Xp-96m">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Marked Location Name : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQZ-Y1-gIe">
+                                <rect key="frame" x="49" y="60" width="190" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MGi-Gl-H19">
+                                <rect key="frame" x="49" y="97" width="190" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pvM-4z-S2U">
+                                <rect key="frame" x="49" y="390" width="190" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Delete Marked Location"/>
+                                <connections>
+                                    <action selector="deleteButton:" destination="igF-eF-s2S" eventType="touchUpInside" id="EvJ-TY-sr1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eiV-XX-h3M">
+                                <rect key="frame" x="127" y="135" width="34" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveButton:" destination="igF-eF-s2S" eventType="touchUpInside" id="JEI-yO-xBd"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uF7-QO-NzM">
+                                <rect key="frame" x="29" y="242" width="308" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eog-iz-Bae">
+                                <rect key="frame" x="49" y="318" width="190" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Take me here!"/>
+                                <connections>
+                                    <action selector="takeMeHereButton:" destination="igF-eF-s2S" eventType="touchUpInside" id="EtA-Ov-ogf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="addressLabel" destination="uF7-QO-NzM" id="0tb-5A-eTY"/>
+                        <outlet property="markedLocationName" destination="MGi-Gl-H19" id="zuN-AT-aZr"/>
+                        <segue destination="7pS-H7-GX8" kind="unwind" identifier="unwindIdentifier" unwindAction="returned:" id="7jg-Td-BsE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mGB-Fc-WQY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="7pS-H7-GX8" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1238" y="479"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Xuq-rW-urf">
+            <objects>
+                <navigationController id="IPM-hu-qDw" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DA2-5G-MMR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="xzV-kZ-P9J"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cQW-vN-oV3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-138" y="479"/>
         </scene>
     </scenes>
 </document>
