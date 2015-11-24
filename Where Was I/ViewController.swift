@@ -14,18 +14,40 @@ class MKPointAnnotationCustom: MKPointAnnotation  {
     var userData: Int?
 }
 
+class MarkedPoint {
+    var name = ""
+    var id = 0
+    var lat = 0.0 as Double
+    var lng = 0.0 as Double
+    
+    init(name: String, id : Int, lat : Double, lng : Double)
+    {
+        self.name = name
+        self.id = id
+        self.lat = lat
+        self.lng = lng
+    }
+    
+}
+
+var MarkedPointArr = [] as [MarkedPoint]
+
+
 
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
+    var boolAutoPan : Bool = true
+    var boolShowNoLocationAlert : Bool?
     var locationManager = CLLocationManager()
     var marklocation = CLLocationCoordinate2D()
     var locationPointAnnotation = MKPointAnnotation()
     var userZoom : Double = 0
     var circle : MKCircle?
     
-    var markedPointAnnotations = [MKPointAnnotationCustom()]
+    var markedPointAnnotations = [] as  [MKPointAnnotationCustom]
     var currentSelectedMarkedPointAnnotation = MKPointAnnotationCustom()
-   
+    var currentSelectedMarkedPointElementId : Int?
+    
     var locationTuples: [(textField: UITextField!, mapItem: MKMapItem?)]!
     
     var currentLocation : CLLocationCoordinate2D?
@@ -34,15 +56,75 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     var displayedPolyline : MKOverlay?
     
+    let kFileName = "savedData.plist"
+    
     
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var myMapView: MKMapView!
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var autoPan: UISwitch!
     
+    
+    @IBAction func settingsTap(sender: AnyObject) {
+        print("Settings Tap")
+    }
+    
+    @IBAction func toggleAutoPan(sender: AnyObject) {
+        boolAutoPan = !boolAutoPan
+    }
     
     @IBAction func returned(segue: UIStoryboardSegue)
     {
         print("Segue Unwound")
+        
+        if ((boolShowNoLocationAlert) != nil)
+        {
+            let myAlert = UIAlertController(title: "My Alert", message: "Your Current Loction is Unknown", preferredStyle:UIAlertControllerStyle.Alert)
+            let ok = UIAlertAction(title: "OK", style:.Default, handler: {(alert:
+                UIAlertAction!) in
+                print("OK button was pressed")
+            })
+            myAlert.addAction(ok)
+            
+            presentViewController(myAlert, animated: true, completion: nil)
+        }
+        
+        
+        if segue.identifier == "unwindSearchIdentifier"
+        {
+            
+            print ("unwindSearchIdentifier")
+            
+            if let searchController = segue.sourceViewController as? SearchTableViewController
+            {
+                
+                print (searchController.selectedMark)
+                
+                for MarkedPoint in MarkedPointArr
+                {
+                    
+                    if MarkedPoint.name  == searchController.selectedMark!
+                    {
+                    
+                        currentLocation = CLLocationCoordinate2D(latitude : MarkedPoint.lat, longitude: MarkedPoint.lng)
+                        
+                        let myRegion = MKCoordinateRegionMakeWithDistance(currentLocation!, (locationManager.location?.horizontalAccuracy)!, (locationManager.location?.horizontalAccuracy)!)
+                                
+                        myMapView.setRegion(myRegion, animated: true)
+
+                        boolAutoPan = false
+                        autoPan.setOn(false, animated: true)
+                        
+                    }
+                    
+                    
+                    
+                }
+
+               
+            }
+        }
+        
         
     }
     
@@ -50,9 +132,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         print ("MarkLocationButtonTapped")
         
-        //myMapView.centerCoordinate
-        //locationManager.location?.coordinate
         
+        //Name is index + 1 as index strats at zero
+        let tempMarkedPoint = MarkedPoint(name: "Marked Location \(markedPointAnnotations.count + 1 )", id : markedPointAnnotations.count, lat: myMapView.centerCoordinate.latitude, lng: myMapView.centerCoordinate.longitude)
         
         marklocation = myMapView.centerCoordinate
         
@@ -60,12 +142,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         let pointAnnotation = MKPointAnnotationCustom()
         pointAnnotation.coordinate = marklocation
-        pointAnnotation.title = "Marked Location \(markedPointAnnotations.count )"
+        pointAnnotation.title = tempMarkedPoint.name
         pointAnnotation.userData = markedPointAnnotations.count
-            
+        
         myMapView.addAnnotation(pointAnnotation)
-            
+        
         markedPointAnnotations.append(pointAnnotation)
+        MarkedPointArr.append(tempMarkedPoint)
     }
     
     
@@ -73,6 +156,49 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        if NSFileManager.defaultManager().fileExistsAtPath(pathToFile()!.path!)
+        {
+            
+            let myArray = NSArray(contentsOfURL: pathToFile()!) as! [String]
+            
+            
+            print ("Loading data...")
+            
+            
+            for element in myArray {
+                
+                print("\(element) ")
+                
+                let fullArr = element.componentsSeparatedByString(",")
+                let myDoubleLat = Double(fullArr[1])
+                let myDoubleLng = Double(fullArr[2])
+                
+                //Commas have been saved as *|* so swap them back
+                let newStringTitle = fullArr[3].stringByReplacingOccurrencesOfString("*|*", withString: ",")
+                
+                let tempMarkedPoint = MarkedPoint(name: newStringTitle, id : Int(fullArr[0])!, lat: myDoubleLat!, lng: myDoubleLng!)
+                
+                
+                let location  = CLLocationCoordinate2D(latitude : tempMarkedPoint.lat, longitude: tempMarkedPoint.lng)
+                
+                let pointAnnotation = MKPointAnnotationCustom()
+                pointAnnotation.coordinate = location
+                
+                
+                pointAnnotation.title = tempMarkedPoint.name
+                pointAnnotation.userData = tempMarkedPoint.id
+                
+                myMapView.addAnnotation(pointAnnotation)
+                
+                MarkedPointArr.append(tempMarkedPoint)
+                markedPointAnnotations.append(pointAnnotation)
+            
+            }
+            
+        }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidEnterBackground:", name:UIApplicationDidEnterBackgroundNotification, object:UIApplication.sharedApplication())
         
         locationManager.delegate = self
         //locationManager.requestAlwaysAuthorization()
@@ -92,6 +218,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             statusLabel.text = "Searching For Your Location..."
         }
         
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -100,7 +228,44 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     
+    func pathToFile() -> NSURL?
+    {
+        let fm = NSFileManager.defaultManager()
+        if let docsURL = try? fm.URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask , appropriateForURL: nil, create: false) {
+            return docsURL.URLByAppendingPathComponent(kFileName)
+        }
+        return nil
+    }
     
+    func applicationDidEnterBackground(notification: NSNotification)
+    {
+        let myArray = NSMutableArray()
+        
+        var strTmp : String?
+        var i : Int = 0
+        
+        print ("Saving Data...")
+        
+        for MarkedPoint in MarkedPointArr
+        {
+            //About to save CSV, so replace any commas in the name with *|*
+            let newString = MarkedPoint.name.stringByReplacingOccurrencesOfString(",", withString: "*|*")
+            //Note i re-issues IDs when saving
+            strTmp = String(i) + ","  + String(MarkedPoint.lat) + "," + String(MarkedPoint.lng) + "," + newString
+            print(strTmp)
+            myArray.addObject(strTmp!)
+            i = i + 1
+            
+        }
+        
+        
+        myArray.writeToURL(pathToFile()!, atomically: true)
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print (error.description)
+        
+    }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
@@ -111,11 +276,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if let ha  = manager.location?.horizontalAccuracy
         {
             
-            let myRegion = MKCoordinateRegionMakeWithDistance(currentLocation!, ha , ha)
+            if boolAutoPan
+            {
+                let myRegion = MKCoordinateRegionMakeWithDistance(currentLocation!, ha , ha)
+                
+                myMapView.setRegion(myRegion, animated: true)
+            }
             
-            myMapView.setRegion(myRegion, animated: true)
-            
-  
             if locationPointAnnotation.title != nil
             {
                 myMapView.removeAnnotation(locationPointAnnotation)
@@ -123,21 +290,18 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
             locationPointAnnotation.coordinate = currentLocation!
             locationPointAnnotation.title = "Your Location"
-           
+            
             myMapView.addAnnotation(locationPointAnnotation)
             
-     
-            
-           
             
             //MKCircle
             
-            if circle?.coordinate != nil
+            if circle != nil
             {
-                myMapView.removeAnnotation(circle!)
+                myMapView.removeOverlay(circle!)
             }
             circle = MKCircle(centerCoordinate: currentLocation!, radius: 10)
-            //myMapView.addOverlay(circle!)
+            myMapView.addOverlay(circle!)
             
             
             
@@ -149,14 +313,14 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                         self.addressLabel.text = self.formatAddressFromPlacemark(placemark)
                         
                         self.sourceMapItem = MKMapItem(placemark:  MKPlacemark(coordinate: placemark.location!.coordinate,
-                                addressDictionary: placemark.addressDictionary as! [String:AnyObject]?))
+                            addressDictionary: placemark.addressDictionary as! [String:AnyObject]?))
                     }
             })
             
             
             
             statusLabel.text = "Found Your Location"
-            locationManager.stopUpdatingLocation()
+            //locationManager.stopUpdatingLocation()
             
         }
         
@@ -170,7 +334,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         userZoom = myMapView.region.span.latitudeDelta
         
-        print (userZoom)
+        //print (userZoom)
         
     }
     
@@ -195,7 +359,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             pinView?.animatesDrop = true
             pinView?.draggable = true
             
-           
+            
             
             //pinView?.leftCalloutAccessoryView = UIButton(type: .DetailDisclosure)
             pinView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
@@ -205,6 +369,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         else
         {
             //printpinView
+            pinView?.pinTintColor = UIColor.redColor()
+            pinView?.animatesDrop = false
             pinView?.annotation = annotation
             //pinView?.image = UIImage(named:"location")
         }
@@ -217,8 +383,28 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     {
         print("edit marked location")
         
-        currentSelectedMarkedPointAnnotation = view.annotation as! MKPointAnnotationCustom
-        self.performSegueWithIdentifier("ShowPopoverFromPin", sender: self)
+        if (view.annotation?.title)! != "Your Location"
+        {
+            currentSelectedMarkedPointAnnotation = view.annotation as! MKPointAnnotationCustom
+            
+            var i: Int = 0
+            
+            for a in markedPointAnnotations
+            {
+                //print (a.title)
+                //print (view.annotation?.title)
+
+                if a.title == (view.annotation?.title)!
+                {
+                   currentSelectedMarkedPointElementId = i
+                }
+                
+                i = i + 1
+            }
+            
+            
+            self.performSegueWithIdentifier("ShowPopoverFromPin", sender: self)
+        }
     }
     
     
@@ -256,7 +442,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     func plotPolyline(route: MKRoute) {
-       
+        
         // If the polyline has been drawn previously, remove it
         if displayedPolyline != nil
         {
@@ -268,30 +454,47 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         myMapView.addOverlay(displayedPolyline!)
         
         myMapView.setVisibleMapRect(route.polyline.boundingMapRect,  edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0), animated: true)
-  
-    }
-    
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print (error.description)
         
     }
+    
+
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
         if segue.identifier == "ShowPopoverFromPin"
         {
-        
+            
             let myPopoverController = segue.destinationViewController
-        
+            
             myPopoverController.setValue(currentSelectedMarkedPointAnnotation.title!, forKey : "originalMarkedLocationName")
-           
+            
             myPopoverController.setValue(currentSelectedMarkedPointAnnotation.coordinate.latitude.description, forKey : "markedLocationLat")
             
             myPopoverController.setValue(currentSelectedMarkedPointAnnotation.coordinate.longitude.description, forKey : "markedLocationLng")
             
             (segue.destinationViewController as! PopoverContentViewController).delegate = self
+            
+        }
         
+        if segue.identifier == "showSearch"
+        {
+            if let searchController = segue.destinationViewController as? SearchTableViewController
+            {
+                
+                var myArray = [String]()
+   
+                for markedPoint in MarkedPointArr
+                {
+                    
+                    myArray.append(markedPoint.name)
+                }
+                
+                myArray.sortInPlace() { $1 > $0 } // sort the fruit by name
+                
+                searchController.arrMarkedLocationNames = myArray
+                searchController.MarkedPointArr = MarkedPointArr
+            }
         }
     }
     
@@ -299,29 +502,78 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         return (placemark.addressDictionary!["FormattedAddressLines"] as! [String]).joinWithSeparator(", ")
     }
     
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+        
+        if newState == .Starting
+        {
+            //print ("Start drag")
+            
+            var i: Int = 0
+            
+            for a in markedPointAnnotations
+            {
+                //print (a.title)
+                //print (view.annotation?.title)
+                
+                if a.title == (view.annotation?.title)!
+                {
+                    currentSelectedMarkedPointElementId = i
+                }
+                
+                i = i + 1
+            }
+
+        }
+        
+        if newState == .Ending
+        {
+            //print ("End drag")
+            
+            MarkedPointArr[currentSelectedMarkedPointElementId!].lat = (view.annotation?.coordinate.latitude)!
+            MarkedPointArr[currentSelectedMarkedPointElementId!].lng = (view.annotation?.coordinate.longitude)!
+            
+        }
+    }
+    
 }
 
 extension ViewController: MarkedLocationDelegate {
-        func updateData(data: String) {
-            
-            //self.internalData = data
-            markedPointAnnotations.removeAtIndex(currentSelectedMarkedPointAnnotation.userData! - 1)
-            
-            let marklocation : CLLocationCoordinate2D = currentSelectedMarkedPointAnnotation.coordinate
-            
-            
-            myMapView.removeAnnotation(currentSelectedMarkedPointAnnotation)
-            
-            
-            let pointAnnotation = MKPointAnnotationCustom()
-            pointAnnotation.coordinate = marklocation
-            pointAnnotation.title = data
-            pointAnnotation.userData = markedPointAnnotations.count
-            
-            myMapView.addAnnotation(pointAnnotation)
-            
-            markedPointAnnotations.append(pointAnnotation)
-        }
+    func updateData(data: String) {
+        
+        //self.internalData = data
+        
+        //var idtoremove : Int = currentSelectedMarkedPointAnnotation.userData!
+        //currentSelectedMarkedPointElementId
+        
+        print(currentSelectedMarkedPointElementId)
+        
+        markedPointAnnotations.removeAtIndex(currentSelectedMarkedPointElementId!)
+        MarkedPointArr.removeAtIndex(currentSelectedMarkedPointElementId!)
+        
+        //markedPointAnnotations.removeAtIndex(currentSelectedMarkedPointAnnotation.userData! - 1)
+        //MarkedPointArr.removeAtIndex(currentSelectedMarkedPointAnnotation.userData! - 1)
+
+        
+        let marklocation : CLLocationCoordinate2D = currentSelectedMarkedPointAnnotation.coordinate
+        
+        
+        myMapView.removeAnnotation(currentSelectedMarkedPointAnnotation)
+        
+        
+        let tempMarkedPoint = MarkedPoint(name: data, id : markedPointAnnotations.count ,  lat: currentSelectedMarkedPointAnnotation.coordinate.latitude, lng: currentSelectedMarkedPointAnnotation.coordinate.longitude)
+        
+        
+        let pointAnnotation = MKPointAnnotationCustom()
+        pointAnnotation.coordinate = marklocation
+        pointAnnotation.title = data
+        pointAnnotation.userData = markedPointAnnotations.count
+        
+        myMapView.addAnnotation(pointAnnotation)
+        
+        markedPointAnnotations.append(pointAnnotation)
+        MarkedPointArr.append(tempMarkedPoint)
+    }
     
     
     
@@ -329,7 +581,8 @@ extension ViewController: MarkedLocationDelegate {
         if boolDelete{
             
             print("deleting...")
-            markedPointAnnotations.removeAtIndex(currentSelectedMarkedPointAnnotation.userData! - 1)
+            markedPointAnnotations.removeAtIndex(currentSelectedMarkedPointAnnotation.userData!)
+            MarkedPointArr.removeAtIndex(currentSelectedMarkedPointAnnotation.userData! )
             myMapView.removeAnnotation(currentSelectedMarkedPointAnnotation)
             
         }
@@ -337,12 +590,23 @@ extension ViewController: MarkedLocationDelegate {
     
     func takeMeHere(TakeMeHere: MKMapItem)
     {
-         print("take me here...")
-            // From     currentSelectedMarkedPointAnnotation.coordinate
-            // To       currentLocation!
+        print("take me here...")
+        // From     currentSelectedMarkedPointAnnotation.coordinate
+        // To       currentLocation!
         
-        calculateSegmentDirections(sourceMapItem!, destMapItem: TakeMeHere)
+        //Is there a current location known?
         
+        if sourceMapItem != nil {
+            calculateSegmentDirections(sourceMapItem!, destMapItem: TakeMeHere)
+        }
+        else
+        {
+            print ("Current location unknown!")
+            
+            
+            boolShowNoLocationAlert = true
+            
+        }
         
     }
     
@@ -364,7 +628,7 @@ extension ViewController: MarkedLocationDelegate {
         directions.calculateDirectionsWithCompletionHandler ({
             (response: MKDirectionsResponse?, error: NSError?) in
             if let routeResponse = response?.routes {
-               
+                
                 let quickestRouteForSegment: MKRoute = routeResponse.sort({$0.expectedTravelTime < $1.expectedTravelTime})[0]
                 
                 time += quickestRouteForSegment.expectedTravelTime
@@ -381,7 +645,7 @@ extension ViewController: MarkedLocationDelegate {
     
     
     func showRoute(routes: [MKRoute], time: NSTimeInterval) {
-        var directionsArray = [(startingAddress: String, endingAddress: String, route: MKRoute)]()
+        //var directionsArray = [(startingAddress: String, endingAddress: String, route: MKRoute)]()
         
         for i in 0..<routes.count {
             plotPolyline(routes[i])
@@ -401,6 +665,8 @@ extension ViewController: MarkedLocationDelegate {
     }
     
     
+    
+    
 }
 
 extension NSTimeInterval {
@@ -410,6 +676,6 @@ extension NSTimeInterval {
         formatter.allowedUnits = [NSCalendarUnit.Hour, NSCalendarUnit.Minute, NSCalendarUnit.Second]
         
         return formatter.stringFromTimeInterval(self)!
-}
+    }
 }
 
