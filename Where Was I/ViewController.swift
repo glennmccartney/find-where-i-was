@@ -95,7 +95,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
             print ("unwindSearchIdentifier")
             
-            if let searchController = segue.sourceViewController as? SearchTableViewController
+            if let searchController = segue.sourceViewController as? SearchViewController
             {
                 
                 print (searchController.selectedMark)
@@ -103,20 +103,28 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 for MarkedPoint in MarkedPointArr
                 {
                     
-                    if MarkedPoint.name  == searchController.selectedMark!
+                    if let sm = searchController.selectedMark
                     {
-                    
-                        currentLocation = CLLocationCoordinate2D(latitude : MarkedPoint.lat, longitude: MarkedPoint.lng)
                         
-                        let myRegion = MKCoordinateRegionMakeWithDistance(currentLocation!, (locationManager.location?.horizontalAccuracy)!, (locationManager.location?.horizontalAccuracy)!)
-                                
-                        myMapView.setRegion(myRegion, animated: true)
-
-                        boolAutoPan = false
-                        autoPan.setOn(false, animated: true)
                         
+                        if MarkedPoint.name  == sm
+                        {
+                            
+                            currentLocation = CLLocationCoordinate2D(latitude : MarkedPoint.lat, longitude: MarkedPoint.lng)
+                            
+                            let myRegion = MKCoordinateRegionMakeWithDistance(currentLocation!, (locationManager.location?.horizontalAccuracy)!, (locationManager.location?.horizontalAccuracy)!)
+                            
+                            myMapView.setRegion(myRegion, animated: true)
+                            
+                            boolAutoPan = false
+                            autoPan.setOn(false, animated: true)
+                            
+                        }
                     }
-                    
+                    else
+                    {
+                        //Do Nothing
+                    }
                     
                     
                 }
@@ -496,6 +504,31 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 searchController.MarkedPointArr = MarkedPointArr
             }
         }
+        
+        
+        //showSearchDialog
+        if segue.identifier == "showSearchDialog"
+        {
+            if let searchController = segue.destinationViewController as? SearchViewController
+            {
+                
+                var myArray = [String]()
+                
+                for markedPoint in MarkedPointArr
+                {
+                    
+                    myArray.append(markedPoint.name)
+                }
+                
+                myArray.sortInPlace() { $1 > $0 } // sort the fruit by name
+                
+                searchController.arrMarkedLocationNames = myArray
+                searchController.MarkedPointArr = MarkedPointArr
+            }
+        }
+        
+        
+        
     }
     
     func formatAddressFromPlacemark(placemark: CLPlacemark) -> String {
