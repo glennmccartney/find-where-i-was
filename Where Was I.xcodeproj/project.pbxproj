@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		31068B6C1C04839D00192F4B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31068B6B1C04839D00192F4B /* SearchViewController.swift */; };
 		31068B711C049EDB00192F4B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31068B6F1C049EDB00192F4B /* Main.storyboard */; };
+		31135DBB1C0602E700E01E69 /* DefaultSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31135DBA1C0602E700E01E69 /* DefaultSettings.plist */; };
 		312512381BFD496C00DA2BE9 /* PopoverContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312512371BFD496C00DA2BE9 /* PopoverContentViewController.swift */; };
-		3132B0721C036D9D00D0179E /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3132B0711C036D9D00D0179E /* SearchTableViewController.swift */; };
 		31BF57131BFF3B9500404B9F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BF57111BFF3B9500404B9F /* SettingsViewController.swift */; };
 		31E645D21BFB57ED0050922A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E645D11BFB57ED0050922A /* AppDelegate.swift */; };
 		31E645D41BFB57ED0050922A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E645D31BFB57ED0050922A /* ViewController.swift */; };
@@ -21,8 +21,8 @@
 /* Begin PBXFileReference section */
 		31068B6B1C04839D00192F4B /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		31068B701C049EDB00192F4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		31135DBA1C0602E700E01E69 /* DefaultSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultSettings.plist; sourceTree = "<group>"; };
 		312512371BFD496C00DA2BE9 /* PopoverContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverContentViewController.swift; sourceTree = "<group>"; };
-		3132B0711C036D9D00D0179E /* SearchTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		31BF57111BFF3B9500404B9F /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		31E645CE1BFB57ED0050922A /* Where Was I.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Where Was I.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E645D11BFB57ED0050922A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -70,8 +70,8 @@
 				31E645DD1BFB57ED0050922A /* Info.plist */,
 				312512371BFD496C00DA2BE9 /* PopoverContentViewController.swift */,
 				31BF57111BFF3B9500404B9F /* SettingsViewController.swift */,
-				3132B0711C036D9D00D0179E /* SearchTableViewController.swift */,
 				31068B6B1C04839D00192F4B /* SearchViewController.swift */,
+				31135DBA1C0602E700E01E69 /* DefaultSettings.plist */,
 			);
 			path = "Where Was I";
 			sourceTree = "<group>";
@@ -135,6 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31068B711C049EDB00192F4B /* Main.storyboard in Resources */,
+				31135DBB1C0602E700E01E69 /* DefaultSettings.plist in Resources */,
 				31E645DC1BFB57ED0050922A /* LaunchScreen.storyboard in Resources */,
 				31E645D91BFB57ED0050922A /* Assets.xcassets in Resources */,
 			);
@@ -148,7 +149,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				31068B6C1C04839D00192F4B /* SearchViewController.swift in Sources */,
-				3132B0721C036D9D00D0179E /* SearchTableViewController.swift in Sources */,
 				31E645D41BFB57ED0050922A /* ViewController.swift in Sources */,
 				312512381BFD496C00DA2BE9 /* PopoverContentViewController.swift in Sources */,
 				31E645D21BFB57ED0050922A /* AppDelegate.swift in Sources */,
