@@ -1,4 +1,4 @@
-//
+		//
 //  PopoverViewController.swift
 //  Where Was I
 //
@@ -8,6 +8,7 @@
 import UIKit
 import CoreLocation
 import MapKit
+import AudioToolbox
 
 protocol MarkedLocationDelegate {
     func updateData(data: String)
@@ -29,12 +30,67 @@ class PopoverContentViewController: UIViewController {
     
     @IBOutlet weak var addressLabel: UILabel!
     
+    @IBOutlet weak var EstimatedAddress: UILabel!
+    
+    @IBOutlet weak var outletTakeMeHere: UIButton!
+    
+    @IBOutlet weak var outletSaveButton: UIButton!
+    
+  	
+
+    
+    @IBAction func textEditingChanged(sender: AnyObject) {
+
+        //Dont allow the name to be saved if itis empty or it already exisits.
+        if ((markedLocationName.text! != "") && (!checkIfNameExisits(markedLocationName.text!)))
+        {
+            outletSaveButton.enabled = true
+        }
+        else
+        {
+            outletSaveButton.enabled = false
+        }
+    }
+    
+    
+    @IBAction func BackButton(sender: AnyObject) {
+        
+        self.performSegueWithIdentifier("unwindIdentifier", sender: self)
+    }
+    
+    
+    
     @IBAction func saveButton(sender: AnyObject) {
         
-        print ("button clicked. Value is \(markedLocationName.text)")
+        //check if the name already exists...
+        var boolNameAlready = false
         
-        self.delegate?.updateData(markedLocationName.text!)
-        self.performSegueWithIdentifier("unwindIdentifier", sender: self)
+        for MarkedPoint in MarkedPointArr
+        {
+            //Does the selected name exist?
+            if  MarkedPoint.name == markedLocationName.text!
+            {
+                boolNameAlready = true
+            }
+        }
+        
+
+        
+        if boolNameAlready
+        {
+            addressLabel.text = "Try another name"
+            EstimatedAddress.text = "Name Already Exists"
+            
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+        }
+        else
+        {
+            addressLabel.text = ""
+            EstimatedAddress.text = ""
+            self.delegate?.updateData(markedLocationName.text!)
+            self.performSegueWithIdentifier("unwindIdentifier", sender: self)
+        }
+    
     }
     
     
@@ -56,6 +112,10 @@ class PopoverContentViewController: UIViewController {
         super.viewDidLoad()
         // Do view setup here.
         
+        outletTakeMeHere.enabled = false
+        
+        outletSaveButton.enabled = false
+        
         if let omln = originalMarkedLocationName {
             markedLocationName.text = omln
         }
@@ -63,6 +123,9 @@ class PopoverContentViewController: UIViewController {
             print("empty selection")
         }
         
+        //Default text for label is empty, in case the Reverse Geocode doesnt work
+        addressLabel.text = ""
+        EstimatedAddress.text = ""
         
         //Reverse Geocode
         
@@ -73,16 +136,21 @@ class PopoverContentViewController: UIViewController {
         let myDoubleLng = Double(markedLocationLng!)
         
         
-         let location = CLLocation(latitude : myDoubleLat!, longitude: myDoubleLng!)
+        let location = CLLocation(latitude : myDoubleLat!, longitude: myDoubleLng!)
         
         CLGeocoder().reverseGeocodeLocation(location,
             completionHandler: {(placemarks:[CLPlacemark]?, error:NSError?) -> Void in
                 if let placemarks = placemarks {
                     let placemark = placemarks[0]
                     self.addressLabel.text = self.formatAddressFromPlacemark(placemark)
+                    self.EstimatedAddress.text = "Estimated Address :"
                     
+                    
+                    //for the take me here function
                     self.MapItem = MKMapItem(placemark:  MKPlacemark(coordinate: placemark.location!.coordinate,
                         addressDictionary: placemark.addressDictionary as! [String:AnyObject]?))
+                    
+                    self.outletTakeMeHere.enabled = true
                 }
         })
         

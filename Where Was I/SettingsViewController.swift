@@ -13,19 +13,27 @@ protocol SettingsDelegate {
     func updateDefaultMarkerName(data: Int)
     func updateSettingPanToCurrentLocationOnOpen(data: Bool)
     func updateSettingDeleteAllUserData(data: Bool)
+    func updateSettingOpenMarkerDetailsAfterSearch(data: Bool)
+    func updateSettingShowCompass(data: Bool)
+    func updateSettingShowScale(data: Bool)
+    func updateSettingShowTraffic(data: Bool)
+    
     func loadSettings()
     func saveSettings()
 }
 
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UITableViewController {
 
     var delegate: SettingsDelegate?
     
     
     @IBOutlet weak var OutletDefaultMarkerName: UISegmentedControl!
     @IBOutlet weak var OutletAutoPanOnLoad: UISwitch!
-    
+    @IBOutlet weak var OutletMarkerDetailsAfterSearch: UISwitch!
+    @IBOutlet weak var OutletShowCompass: UISwitch!
+    @IBOutlet weak var OutletShowTraffic: UISwitch!
+    @IBOutlet weak var OutletShowScale: UISwitch!
     
     @IBAction func doneButton(sender: AnyObject) {
         print ("Done button clicked")
@@ -44,13 +52,44 @@ class SettingsViewController: UIViewController {
     
     @IBAction func PanOnOpen(sender: AnyObject) {
         let mySwitch = sender as! UISwitch
-        
         if let tempBool : Bool = mySwitch.on
         {
             delegate?.updateSettingPanToCurrentLocationOnOpen(tempBool)
         }
-        
     }
+    
+    @IBAction func MarkerDetailsAfterSearch(sender: AnyObject) {
+        let mySwitch = sender as! UISwitch
+        if let tempBool : Bool = mySwitch.on
+        {
+            delegate?.updateSettingOpenMarkerDetailsAfterSearch(tempBool)
+        }
+    }
+    
+    @IBAction func ShowCompass(sender: AnyObject) {
+        let mySwitch = sender as! UISwitch
+        if let tempBool : Bool = mySwitch.on
+        {
+            delegate?.updateSettingShowCompass(tempBool)
+        }
+    }
+    
+    @IBAction func ShowTraffic(sender: AnyObject) {
+        let mySwitch = sender as! UISwitch
+        if let tempBool : Bool = mySwitch.on
+        {
+            delegate?.updateSettingShowTraffic(tempBool)
+        }
+    }
+    
+    @IBAction func ShowScale(sender: AnyObject) {
+        let mySwitch = sender as! UISwitch
+        if let tempBool : Bool = mySwitch.on
+        {
+            delegate?.updateSettingShowScale(tempBool)
+        }
+    }
+    
     
     @IBAction func deleteAllUserData(sender: AnyObject) {
         
@@ -60,14 +99,7 @@ class SettingsViewController: UIViewController {
             print("Yes button was pressed")
             
             //Delete User data
-            
-            //Save data
-            
-            //let myArray = NSMutableArray()
-            //print ("Saving No Data...")
-            //myArray.writeToURL(pathToFile(kFileName)!, atomically: true)
-            
-            
+           
             
             let fileManager = NSFileManager.defaultManager()
             
@@ -99,6 +131,10 @@ class SettingsViewController: UIViewController {
             //Remove Markup
             self.delegate?.updateSettingDeleteAllUserData(true)
             
+            
+            //Erase Array of data
+            MarkedPointArr = []
+            
             //Load settings to get default vaules back
             self.delegate?.loadSettings()
             
@@ -122,6 +158,8 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         // Do view setup here.
         
+     
+        
         reloadSettings()
     }
     
@@ -134,6 +172,42 @@ class SettingsViewController: UIViewController {
         else
         {
             OutletAutoPanOnLoad.on = false
+        }
+        
+        if settingOpenMarkerDetailsAfterSearch
+        {
+            OutletMarkerDetailsAfterSearch.on = true
+        }
+        else
+        {
+            OutletMarkerDetailsAfterSearch.on = false
+        }
+        
+        if settingShowCompass
+        {
+            OutletShowCompass.on = true
+        }
+        else
+        {
+            OutletShowCompass.on = false
+        }
+        
+        if settingShowTraffic
+        {
+            OutletShowTraffic.on = true
+        }
+        else
+        {
+            OutletShowTraffic.on = false
+        }
+        
+        if settingShowScale
+        {
+            OutletShowScale.on = true
+        }
+        else
+        {
+            OutletShowScale.on = false
         }
         
         if settingDefaultMarkerdPointName == 0
