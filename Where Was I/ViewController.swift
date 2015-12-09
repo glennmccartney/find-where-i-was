@@ -18,6 +18,7 @@ var settingOpenMarkerDetailsAfterSearch: Bool = false
 var settingShowCompass: Bool = true
 var settingShowTraffic: Bool = true
 var settingShowScale: Bool = true
+var settingMapType: String = "Standard"
 
 //Static Settings
 let kFileName = "savedData.plist"
@@ -283,6 +284,19 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         {
             myMapView.showsTraffic = true
         }
+        
+        if settingMapType == "Standard"
+        {
+            myMapView.mapType = MKMapType.Standard
+        }
+        if settingMapType == "Hybrid"
+        {
+            myMapView.mapType = MKMapType.Hybrid
+        }
+        if settingMapType == "Satellite"
+        {
+            myMapView.mapType = MKMapType.Satellite
+        }
       
         
         if NSFileManager.defaultManager().fileExistsAtPath(pathToFile(kFileName)!.path!)
@@ -535,8 +549,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
             for a in markedPointAnnotations
             {
-                //print (a.title)
-                //print (view.annotation?.title)
+                print (a.title)
+                print (view.annotation?.title)
 
                 if a.title == (view.annotation?.title)!
                 {
@@ -556,15 +570,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     {
         if overlay is MKPolyline
         {
-            
-            /*
-            let route = overlay as! MKPolyline
-            let routeRenderer = MKPolylineRenderer(polyline: route)
-            routeRenderer.strokeColor = UIColor.redColor().colorWithAlphaComponent(0.6)
-            let pattern = [2, 5]
-            routeRenderer.lineDashPattern = pattern
-            routeRenderer.lineWidth = 3
-            */
             
             let polylineRenderer = MKPolylineRenderer(overlay: overlay)
             polylineRenderer.strokeColor = UIColor.greenColor().colorWithAlphaComponent(0.75)
@@ -647,6 +652,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 
                 searchController.arrMarkedLocationNames = myArray
                 searchController.MarkedPointArr = MarkedPointArr
+                
+                searchController.delegate = self
             }
         }
         
@@ -731,6 +738,7 @@ extension ViewController: MarkedLocationDelegate {
     func deleteData(boolDelete: Bool) {
         if boolDelete{
             
+                       
             print("deleting...index = " + String(currentSelectedMarkedPointAnnotation.userData!))
             
             markedPointAnnotations.removeAtIndex(currentSelectedMarkedPointAnnotation.userData!)
@@ -791,7 +799,7 @@ extension ViewController: MarkedLocationDelegate {
         // 2
         request.requestsAlternateRoutes = true
         // 3
-        request.transportType = .Walking
+        request.transportType = .Any
         // 4
         let directions = MKDirections(request: request)
         directions.calculateDirectionsWithCompletionHandler ({
@@ -836,6 +844,55 @@ extension ViewController: MarkedLocationDelegate {
     
     
     
+}
+
+extension ViewController: SearchDelegate {
+    func deleteMarker(data: String) {
+       
+ 
+        var i: Int = 0
+        
+        for a in markedPointAnnotations
+        {
+           
+            if a.title == data
+            {
+                currentSelectedMarkedPointElementId = i
+            }
+            
+            i = i + 1
+        }
+
+        currentSelectedMarkedPointAnnotation = markedPointAnnotations[currentSelectedMarkedPointElementId!]
+        
+        print("deleting...index = " + String(currentSelectedMarkedPointAnnotation.userData!))
+        
+        markedPointAnnotations.removeAtIndex(currentSelectedMarkedPointAnnotation.userData!)
+        MarkedPointArr.removeAtIndex(currentSelectedMarkedPointAnnotation.userData! )
+        myMapView.removeAnnotation(currentSelectedMarkedPointAnnotation)
+        
+        //reset i back to zero
+        i = 0
+        
+            //reset ID's
+        
+            for _ in MarkedPointArr
+            {
+                MarkedPointArr[i].id = i
+                i = i + 1
+            }
+            
+            i = 0
+            
+            for _ in markedPointAnnotations
+            {
+                markedPointAnnotations[i].userData = i
+                i = i + 1
+            }
+            
+        
+    }
+
 }
 
 extension ViewController: SettingsDelegate {
@@ -901,11 +958,28 @@ extension ViewController: SettingsDelegate {
         }
     }
     
+    func updateSettingMapType(data: Int) {
+        if data == 0 {
+            settingMapType = "Standard"
+            myMapView.mapType = MKMapType.Standard
+        }
+        if data == 1 {
+            settingMapType = "Satellite"
+            myMapView.mapType = MKMapType.Satellite
+        }
+        if data == 2 {
+            settingMapType = "Hybrid"
+            myMapView.mapType = MKMapType.Hybrid
+        }
+    }
+    
     func updateSettingDeleteAllUserData(data: Bool) {
         if data == true{
             
             let annotationsToRemove = myMapView.annotations.filter { $0 !== myMapView.userLocation }
             myMapView.removeAnnotations( annotationsToRemove )
+            
+  
         }
       
     }
@@ -988,7 +1062,10 @@ extension ViewController: SettingsDelegate {
                 {
                     settingShowTraffic = tmpsettingShowTraffic
                 }
-               
+                if let tmpsettingMapType = dict.objectForKey("MapType") as? String
+                {
+                    settingMapType = tmpsettingMapType
+                }
                 //...
             } else {
                 print("WARNING: Couldn't create dictionary from \(kSettingsFileName) Default values will be used!")
@@ -1014,6 +1091,7 @@ extension ViewController: SettingsDelegate {
         dict.setObject(settingShowCompass, forKey: "ShowCompass")
         dict.setObject(settingShowTraffic, forKey: "ShowTraffic")
         dict.setObject(settingShowScale, forKey: "ShowScale")
+        dict.setObject(settingMapType, forKey: "MapType")
         //...
         //writing to plist
         dict.writeToFile(path!.path!, atomically: false)

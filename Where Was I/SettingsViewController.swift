@@ -17,6 +17,7 @@ protocol SettingsDelegate {
     func updateSettingShowCompass(data: Bool)
     func updateSettingShowScale(data: Bool)
     func updateSettingShowTraffic(data: Bool)
+    func updateSettingMapType(data: Int)
     
     func loadSettings()
     func saveSettings()
@@ -34,11 +35,13 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var OutletShowCompass: UISwitch!
     @IBOutlet weak var OutletShowTraffic: UISwitch!
     @IBOutlet weak var OutletShowScale: UISwitch!
+    @IBOutlet weak var OutletMapType: UISegmentedControl!
+    
+    
     
     @IBAction func doneButton(sender: AnyObject) {
-        print ("Done button clicked")
+        //print ("Done button clicked")
         
-        //self.delegate?.updateData(markedLocationName.text!)
         delegate?.saveSettings()
         
         self.performSegueWithIdentifier("unwindIdentifier", sender: self)
@@ -90,6 +93,11 @@ class SettingsViewController: UITableViewController {
         }
     }
     
+    @IBAction func MapTypeChanged(sender: AnyObject) {
+            delegate?.updateSettingMapType(sender.selectedSegmentIndex)
+        
+    }
+    
     
     @IBAction func deleteAllUserData(sender: AnyObject) {
         
@@ -134,7 +142,7 @@ class SettingsViewController: UITableViewController {
             
             //Erase Array of data
             MarkedPointArr = []
-            
+
             //Load settings to get default vaules back
             self.delegate?.loadSettings()
             
@@ -218,6 +226,19 @@ class SettingsViewController: UITableViewController {
         if settingDefaultMarkerdPointName == 1
         {
             OutletDefaultMarkerName.selectedSegmentIndex = 1
+        }
+        
+        if settingMapType == "Standard"
+        {
+            OutletMapType.selectedSegmentIndex = 0
+        }
+        if settingMapType == "Satellite"
+        {
+            OutletMapType.selectedSegmentIndex = 1
+        }
+        if settingMapType == "Hybrid"
+        {
+            OutletMapType.selectedSegmentIndex = 2
         }
 
     }

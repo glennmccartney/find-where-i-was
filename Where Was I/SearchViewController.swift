@@ -8,8 +8,14 @@
 
 import UIKit
 
+protocol SearchDelegate {
+    func deleteMarker(data: String)
+}
+
 class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
 
+    var delegate: SearchDelegate?
+    
     var arrMarkedLocationNames = [] as [String]
     
     var filteredarrMarkedLocationNames = [String]()
@@ -19,8 +25,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     @IBOutlet weak var myTableView: UITableView!
-    
-    
+       
     
     @IBAction func backButtonTapped(sender: AnyObject) {
           self.performSegueWithIdentifier("unwindSearchIdentifier", sender: self)
@@ -42,8 +47,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
                
         
         myTableView.reloadData()
-        
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -133,25 +136,29 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     */
 
-    /*
+    
     // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
+    
 
-    /*
+    
     // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
+            arrMarkedLocationNames.removeAtIndex(indexPath.row)
+            let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
+            delegate?.deleteMarker((currentCell.textLabel?.text)!)
+            
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.

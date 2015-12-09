@@ -98,8 +98,26 @@ class PopoverContentViewController: UIViewController {
         print ("delete clicked")
         
         //To-Do : Add an "Are You sure?" message
-        self.delegate?.deleteData(true)
-        self.performSegueWithIdentifier("unwindIdentifier", sender: self)
+        
+        
+        let myAlert = UIAlertController(title: "Are you sure?", message: "Are you sure you wish to delete this marker?", preferredStyle:UIAlertControllerStyle.Alert)
+        let yes = UIAlertAction(title: "Yes", style:.Default, handler: {(alert:
+            UIAlertAction!) in
+            
+            self.delegate?.deleteData(true)
+            self.performSegueWithIdentifier("unwindIdentifier", sender: self)
+        })
+        let no = UIAlertAction(title: "No", style:.Default, handler: {(alert:
+            UIAlertAction!) in
+            //do nothing!
+            
+        })
+        
+        myAlert.addAction(no)
+        myAlert.addAction(yes)
+        
+        presentViewController(myAlert, animated: true, completion: nil)
+      
     }
     
     
