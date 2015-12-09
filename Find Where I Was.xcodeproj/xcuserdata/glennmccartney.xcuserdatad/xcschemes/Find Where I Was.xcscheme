@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0710"
+   LastUpgradeVersion = "0720"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "31E645CD1BFB57ED0050922A"
-               BuildableName = "Where Was I.app"
-               BlueprintName = "Where Was I"
-               ReferencedContainer = "container:Where Was I.xcodeproj">
+               BlueprintIdentifier = "313C845C1C184395000C27F5"
+               BuildableName = "Find Where I Was.app"
+               BlueprintName = "Find Where I Was"
+               ReferencedContainer = "container:Find Where I Was.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "31E645CD1BFB57ED0050922A"
-            BuildableName = "Where Was I.app"
-            BlueprintName = "Where Was I"
-            ReferencedContainer = "container:Where Was I.xcodeproj">
+            BlueprintIdentifier = "313C845C1C184395000C27F5"
+            BuildableName = "Find Where I Was.app"
+            BlueprintName = "Find Where I Was"
+            ReferencedContainer = "container:Find Where I Was.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -55,10 +55,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "31E645CD1BFB57ED0050922A"
-            BuildableName = "Where Was I.app"
-            BlueprintName = "Where Was I"
-            ReferencedContainer = "container:Where Was I.xcodeproj">
+            BlueprintIdentifier = "313C845C1C184395000C27F5"
+            BuildableName = "Find Where I Was.app"
+            BlueprintName = "Find Where I Was"
+            ReferencedContainer = "container:Find Where I Was.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -74,10 +74,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "31E645CD1BFB57ED0050922A"
-            BuildableName = "Where Was I.app"
-            BlueprintName = "Where Was I"
-            ReferencedContainer = "container:Where Was I.xcodeproj">
+            BlueprintIdentifier = "313C845C1C184395000C27F5"
+            BuildableName = "Find Where I Was.app"
+            BlueprintName = "Find Where I Was"
+            ReferencedContainer = "container:Find Where I Was.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

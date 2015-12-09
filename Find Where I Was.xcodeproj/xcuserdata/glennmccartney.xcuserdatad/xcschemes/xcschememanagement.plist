@@ -4,14 +4,24 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Where Was I.xcscheme</key>
+		<key>Find Where I Was.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>313C84451C183B0E000C27F5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>313C845C1C184395000C27F5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>31E645CD1BFB57ED0050922A</key>
 		<dict>
 			<key>primary</key>

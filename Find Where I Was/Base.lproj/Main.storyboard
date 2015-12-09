@@ -9,7 +9,7 @@
         <!--Where Was I ?-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Where_Was_I" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Find_Where_I_Was" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -178,7 +178,7 @@
         <!--Settings-->
         <scene sceneID="Bcc-In-1Ps">
             <objects>
-                <tableViewController id="PWw-5b-UHI" userLabel="Settings" customClass="SettingsViewController" customModule="Where_Was_I" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="PWw-5b-UHI" userLabel="Settings" customClass="SettingsViewController" customModule="Find_Where_I_Was" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ic3-r4-nyr">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -542,7 +542,7 @@
         <!--Popover View Controller-->
         <scene sceneID="Vw2-B6-p7V">
             <objects>
-                <viewController id="igF-eF-s2S" userLabel="Popover View Controller" customClass="PopoverContentViewController" customModule="Where_Was_I" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="igF-eF-s2S" userLabel="Popover View Controller" customClass="PopoverContentViewController" customModule="Find_Where_I_Was" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CF0-qn-dez"/>
                         <viewControllerLayoutGuide type="bottom" id="jqz-uc-HyP"/>
@@ -684,7 +684,7 @@
         <!--Search View Controller-->
         <scene sceneID="cLE-IH-DWH">
             <objects>
-                <viewController id="iei-sh-46k" customClass="SearchViewController" customModule="Where_Was_I" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="iei-sh-46k" customClass="SearchViewController" customModule="Find_Where_I_Was" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oV1-ks-yH0"/>
                         <viewControllerLayoutGuide type="bottom" id="NdV-wq-h6N"/>
