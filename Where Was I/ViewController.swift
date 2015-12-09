@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 
 
-//Settings
+//User Settings
 var settingDefaultMarkerdPointName : Int = 1
 var settingPanToCurrentLoctionOnOpen : Bool = true
 var settingOpenMarkerDetailsAfterSearch: Bool = false
@@ -29,7 +29,7 @@ let defaultSettingsfileName = "DefaultSettings"
 var MarkedPointArr = [] as [MarkedPoint]
 
 
-//Classes Start ------------------------------------------
+//Custom Classes Start ------------------------------------------
 class MKPointAnnotationCustom: MKPointAnnotation  {
     var userData: Int?
 }
@@ -49,7 +49,7 @@ class MarkedPoint {
     }
     
 }
-//Classes End ------------------------------------------
+//Custom Classes End ------------------------------------------
 
 
 class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {

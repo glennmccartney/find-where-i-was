@@ -17,8 +17,7 @@ protocol MarkedLocationDelegate {
 }
 
 class PopoverContentViewController: UIViewController {
-
-    
+   
     
     var delegate: MarkedLocationDelegate?
     var originalMarkedLocationName : String?
