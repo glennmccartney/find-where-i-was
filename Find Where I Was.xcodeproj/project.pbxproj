@@ -16,6 +16,7 @@
 		313C84731C1844F7000C27F5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313C84701C1844F7000C27F5 /* SearchViewController.swift */; };
 		313C84741C1844F7000C27F5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313C84711C1844F7000C27F5 /* SettingsViewController.swift */; };
 		313C84761C1844FC000C27F5 /* DefaultSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 313C84751C1844FC000C27F5 /* DefaultSettings.plist */; };
+		31FD38F01C18BB5700EE1750 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31FF38E81C1833440068A68B /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31FD38F01C18BB5700EE1750 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +112,11 @@
 				TargetAttributes = {
 					313C845C1C184395000C27F5 = {
 						CreatedOnToolsVersion = 7.2;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -295,6 +302,7 @@
 				313C846E1C184396000C27F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		31E645C91BFB57ED0050922A /* Build configuration list for PBXProject "Find Where I Was" */ = {
 			isa = XCConfigurationList;
