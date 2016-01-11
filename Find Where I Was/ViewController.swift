@@ -762,6 +762,8 @@ extension ViewController: MarkedLocationDelegate {
                 i = i + 1
             }
             
+
+            
         }
     }
     
@@ -979,6 +981,11 @@ extension ViewController: SettingsDelegate {
             let annotationsToRemove = myMapView.annotations.filter { $0 !== myMapView.userLocation }
             myMapView.removeAnnotations( annotationsToRemove )
             
+            // If the polyline has been drawn previously, remove it
+            if displayedPolyline != nil
+            {
+                myMapView.removeOverlay(displayedPolyline!)
+            }
   
         }
       

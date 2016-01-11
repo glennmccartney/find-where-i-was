@@ -136,12 +136,15 @@ class SettingsViewController: UITableViewController {
                 print("Remove failed: \(error.localizedDescription)")
             }
             
+            
             //Remove Markup
             self.delegate?.updateSettingDeleteAllUserData(true)
             
             
             //Erase Array of data
             MarkedPointArr = []
+            
+            
 
             //Load settings to get default vaules back
             self.delegate?.loadSettings()

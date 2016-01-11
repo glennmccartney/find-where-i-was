@@ -90,6 +90,7 @@
 				313C84591C184395000C27F5 /* Sources */,
 				313C845A1C184395000C27F5 /* Frameworks */,
 				313C845B1C184395000C27F5 /* Resources */,
+				316F72CE1C18D99200DAB6FC /* Update Build Version */,
 			);
 			buildRules = (
 			);
@@ -112,6 +113,7 @@
 				TargetAttributes = {
 					313C845C1C184395000C27F5 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 56Q36M558X;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -152,6 +154,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		316F72CE1C18D99200DAB6FC /* Update Build Version */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Update Build Version";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\")\nbuildNumber=$(($buildNumber + 1))\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		313C84591C184395000C27F5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -191,8 +210,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Find Where I Was/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.glennmccartney.findwhereiwas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -203,8 +223,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Find Where I Was/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.glennmccartney.findwhereiwas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
