@@ -22,7 +22,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     var resultSearchController = UISearchController()
     var MarkedPointArr = [] as [MarkedPoint]
     var selectedMark : String?
-    
+    var OpenMarkerDetailsForEdit: Bool = false
     
     @IBOutlet weak var myTableView: UITableView!
        
@@ -44,7 +44,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         self.resultSearchController.searchBar.placeholder = "Search Marked Locations"
         
         myTableView.tableHeaderView = self.resultSearchController.searchBar
-               
+        
         
         myTableView.reloadData()
     }
@@ -113,10 +113,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     {
         let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
         
-        //print (currentCell.textLabel?.text)
-        
-        //print ("You clicked on \(MarkedPointArr[indexPath.row].name)")
-        
         print ("You clicked on \(currentCell.textLabel?.text)")
         
         selectedMark = currentCell.textLabel?.text
@@ -145,20 +141,68 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
 
     
+    
     // Override to support editing the table view.
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
+            
+            /*
             // Delete the row from the data source
             arrMarkedLocationNames.removeAtIndex(indexPath.row)
             let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
             delegate?.deleteMarker((currentCell.textLabel?.text)!)
             
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            */
+            
+            
         } else if editingStyle == .Insert {
+            
+            
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
+        
+       
     }
+
+
     
+    
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            //TODO: edit the row at indexPath here
+            print ("Edit")
+            
+            self.OpenMarkerDetailsForEdit = true
+            
+            let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
+            self.selectedMark = currentCell.textLabel?.text
+            
+            self.performSegueWithIdentifier("unwindSearchIdentifier", sender: self)
+            
+            
+            
+        }
+        editAction.backgroundColor = UIColor.blueColor()
+        
+        
+        let deleteAction = UITableViewRowAction(style: .Normal, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            //TODO: Delete the row at indexPath here
+            
+            // Delete the row from the data source
+            self.arrMarkedLocationNames.removeAtIndex(indexPath.row)
+            let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
+            self.delegate?.deleteMarker((currentCell.textLabel?.text)!)
+            
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            
+            
+        }
+        deleteAction.backgroundColor = UIColor.redColor()
+        
+        return [editAction,deleteAction]
+    }
 
     /*
     // Override to support rearranging the table view.

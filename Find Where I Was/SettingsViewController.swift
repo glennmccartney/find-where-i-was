@@ -26,8 +26,7 @@ protocol SettingsDelegate {
 
 class SettingsViewController: UITableViewController {
 
-    var delegate: SettingsDelegate?
-    
+    var delegate: SettingsDelegate?   
     
     @IBOutlet weak var OutletDefaultMarkerName: UISegmentedControl!
     @IBOutlet weak var OutletAutoPanOnLoad: UISwitch!

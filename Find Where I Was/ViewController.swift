@@ -28,7 +28,6 @@ let defaultSettingsfileName = "DefaultSettings"
 //Global Vars
 var MarkedPointArr = [] as [MarkedPoint]
 
-
 //Custom Classes Start ------------------------------------------
 class MKPointAnnotationCustom: MKPointAnnotation  {
     var userData: Int?
@@ -112,6 +111,35 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             {
                 //print (searchController.selectedMark)
                 
+                
+                if (searchController.OpenMarkerDetailsForEdit)
+                {
+                             
+                    //try and find the Marked Point by looping through all and the map and matching the name
+                    for MarkedPoint in MarkedPointArr
+                    {
+                        //If a Marked Point has been selected...
+                        if let sm = searchController.selectedMark
+                        {
+                            if MarkedPoint.name  == sm
+                            {
+    
+                                    currentSelectedMarkedPointAnnotation = markedPointAnnotations[MarkedPoint.id]
+                                
+                                    boolGotoDetailsOnviewDidLoad = true
+                    
+                            }
+                            
+                          
+                        }
+                    }
+                    
+                    //reset vaule back to false
+                    searchController.OpenMarkerDetailsForEdit = false
+                    
+                }
+                
+                
                 //try and find the Marked Point by looping through all and the map and matching the name
                 for MarkedPoint in MarkedPointArr
                 {
@@ -136,7 +164,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                             //Make sure the autopan does move the map back to the current location just after the user ask to look at a saved marker.
                             boolAutoPanOnResume = false
                             
-                            if settingOpenMarkerDetailsAfterSearch
+                            
+                            if (settingOpenMarkerDetailsAfterSearch)
                             {
                                 currentSelectedMarkedPointAnnotation = markedPointAnnotations[MarkedPoint.id]
                                 
@@ -157,8 +186,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                                 
                                 
                                 boolGotoDetailsOnviewDidLoad = true
-                                //self.performSegueWithIdentifier("ShowPopoverFromPin", sender: self)
+     
+                                
                             }
+                            
+                            
                         }
                     }
                     else
@@ -188,6 +220,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             //Go
             self.performSegueWithIdentifier("ShowPopoverFromPin", sender: self)
         }
+        
+        
     }
     
     @IBAction func MarkLocationButtonTapped(sender: AnyObject) {
