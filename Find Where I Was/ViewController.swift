@@ -114,7 +114,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 
                 if (searchController.OpenMarkerDetailsForEdit)
                 {
-                             
+                    
                     //try and find the Marked Point by looping through all and the map and matching the name
                     for MarkedPoint in MarkedPointArr
                     {
