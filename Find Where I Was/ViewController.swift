@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import GoogleMobileAds
 
 
 //User Settings
@@ -51,7 +52,7 @@ class MarkedPoint {
 //Custom Classes End ------------------------------------------
 
 
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GADInterstitialDelegate {
     var boolGotoDetailsOnviewDidLoad : Bool = false
     var boolAutoPanOnResume : Bool = false
     var boolAutoPan : Bool = true
@@ -71,6 +72,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var sourceMapItem : MKMapItem?
     var displayedPolyline : MKOverlay?
     
+    var interstitial: GADInterstitial!
     
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var myMapView: MKMapView!
@@ -379,8 +381,22 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             statusLabel.text = "Searching For Your Location..."
         }
         
+        self.interstitial = createAndLoadInterstitial()
         
+    }
+    
+    func createAndLoadInterstitial() -> GADInterstitial
+    {
+        let interstitial = GADInterstitial(adUnitID: "ca-app-pub-0604146100849518/4655687201")
         
+        let request = GADRequest()
+        // Requests test ads on test devices.
+        let devices: [String] = ["7fc59f853d9dbd8193c2fb6dd425c689", kGADSimulatorID as! String]
+        request.testDevices = devices
+        
+        interstitial.loadRequest(request)
+        interstitial.delegate = self
+        return interstitial
     }
     
     override func didReceiveMemoryWarning() {
@@ -580,8 +596,15 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 i = i + 1
             }
             
-            
-            self.performSegueWithIdentifier("ShowPopoverFromPin", sender: self)
+            //run once
+            if self.interstitial.isReady
+            {
+                self.interstitial.presentFromRootViewController(self)
+            }
+            else
+            {
+                self.performSegueWithIdentifier("ShowPopoverFromPin", sender: self)
+            }
         }
     }
     
@@ -623,12 +646,15 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         myMapView.addOverlay(displayedPolyline!)
         
         myMapView.setVisibleMapRect(route.polyline.boundingMapRect,  edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0), animated: true)
-        
     }
     
     
-    
-    
+    func interstitialDidDismissScreen(ad: GADInterstitial!) {
+        print ("interstitialDidDismissScreen")
+        self.performSegueWithIdentifier("ShowPopoverFromPin", sender: self)
+        self.interstitial = createAndLoadInterstitial()
+    }
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
         if segue.identifier == "ShowSettings"
@@ -650,6 +676,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             myPopoverController.setValue(currentSelectedMarkedPointAnnotation.coordinate.longitude.description, forKey : "markedLocationLng")
             
             (segue.destinationViewController as! PopoverContentViewController).delegate = self
+    
             
         }
         
