@@ -67,14 +67,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     var currentSelectedMarkedPointElementId : Int?
     
     var locationTuples: [(textField: UITextField!, mapItem: MKMapItem?)]!
-    
     var currentLocation : CLLocationCoordinate2D?
-    
     var sourceMapItem : MKMapItem?
-    
     var displayedPolyline : MKOverlay?
-    
-   
     
     
     @IBOutlet weak var statusLabel: UILabel!
@@ -82,10 +77,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var autoPan: UISwitch!
     
-    
-    @IBAction func settingsTap(sender: AnyObject) {
-        print("Settings Tap")
-    }
     
     @IBAction func toggleAutoPan(sender: AnyObject) {
         boolAutoPan = !boolAutoPan
@@ -104,7 +95,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
             presentViewController(myAlert, animated: true, completion: nil)
         }
-
+        
         if segue.identifier == "unwindSearchIdentifier"
         {
             if let searchController = segue.sourceViewController as? SearchViewController
@@ -123,20 +114,16 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                         {
                             if MarkedPoint.name  == sm
                             {
-    
-                                    currentSelectedMarkedPointAnnotation = markedPointAnnotations[MarkedPoint.id]
+                                currentSelectedMarkedPointAnnotation = markedPointAnnotations[MarkedPoint.id]
                                 
-                                    boolGotoDetailsOnviewDidLoad = true
-                    
+                                boolGotoDetailsOnviewDidLoad = true
                             }
                             
-                          
                         }
                     }
                     
                     //reset vaule back to false
                     searchController.OpenMarkerDetailsForEdit = false
-                    
                 }
                 
                 
@@ -186,7 +173,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                                 
                                 
                                 boolGotoDetailsOnviewDidLoad = true
-     
+                                
                                 
                             }
                             
@@ -200,8 +187,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                     
                     
                 }
-
-               
+                
+                
             }
         }
         
@@ -233,7 +220,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         //Name is index + 1 as index starts at zero
         if settingDefaultMarkerdPointName==0
         {
-              tempMarkedPoint = MarkedPoint(name: "Marked Location \(markedPointAnnotations.count + 1 )", id : markedPointAnnotations.count, lat: myMapView.centerCoordinate.latitude, lng: myMapView.centerCoordinate.longitude)
+            tempMarkedPoint = MarkedPoint(name: "Marked Location \(markedPointAnnotations.count + 1 )", id : markedPointAnnotations.count, lat: myMapView.centerCoordinate.latitude, lng: myMapView.centerCoordinate.longitude)
             
             marklocation = myMapView.centerCoordinate
             
@@ -268,7 +255,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                             i = i + 1
                             proposedName =  self.formatAddressFromPlacemark(placemark) + " (" + String(i) + ")"
                         }
-                    
+                        
                         tempMarkedPoint = MarkedPoint(name: proposedName, id : self.markedPointAnnotations.count, lat: self.myMapView.centerCoordinate.latitude, lng: self.myMapView.centerCoordinate.longitude)
                         
                         self.marklocation = self.myMapView.centerCoordinate
@@ -282,19 +269,15 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                         
                         self.markedPointAnnotations.append(pointAnnotation)
                         MarkedPointArr.append(tempMarkedPoint!)
-
+                        
                     }
             })
             
             
         }
-        
-        
-        
-        
     }
     
-
+    
     
     override func viewDidLoad() {
         
@@ -331,7 +314,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         {
             myMapView.mapType = MKMapType.Satellite
         }
-      
+        
         
         if NSFileManager.defaultManager().fileExistsAtPath(pathToFile(kFileName)!.path!)
         {
@@ -369,7 +352,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 
                 MarkedPointArr.append(tempMarkedPoint)
                 markedPointAnnotations.append(pointAnnotation)
-            
+                
             }
             
         }
@@ -406,14 +389,17 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     
-
+    @IBAction func settingsTap(sender: AnyObject) {
+        print("Settings Tap")
+    }
+    
     
     func applicationDidBecomeActive(notification: NSNotification)
     {
         //get the map to do one pan to current location on resume
         if settingPanToCurrentLoctionOnOpen
         {
-           boolAutoPanOnResume = true
+            boolAutoPanOnResume = true
         }
         
     }
@@ -585,10 +571,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             {
                 print (a.title)
                 print (view.annotation?.title)
-
+                
                 if a.title == (view.annotation?.title)!
                 {
-                   currentSelectedMarkedPointElementId = i
+                    currentSelectedMarkedPointElementId = i
                 }
                 
                 i = i + 1
@@ -640,14 +626,14 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
     }
     
-
+    
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
         if segue.identifier == "ShowSettings"
-        {      
-           
+        {
+            
             (segue.destinationViewController as! SettingsViewController).delegate = self
             
         }
@@ -666,7 +652,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             (segue.destinationViewController as! PopoverContentViewController).delegate = self
             
         }
-                
+        
         
         //showSearchDialog
         if segue.identifier == "showSearchDialog"
@@ -720,7 +706,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 
                 i = i + 1
             }
-
+            
         }
         
         if newState == .Ending
@@ -772,7 +758,7 @@ extension ViewController: MarkedLocationDelegate {
     func deleteData(boolDelete: Bool) {
         if boolDelete{
             
-                       
+            
             print("deleting...index = " + String(currentSelectedMarkedPointAnnotation.userData!))
             
             markedPointAnnotations.removeAtIndex(currentSelectedMarkedPointAnnotation.userData!)
@@ -780,7 +766,7 @@ extension ViewController: MarkedLocationDelegate {
             myMapView.removeAnnotation(currentSelectedMarkedPointAnnotation)
             
             
-           //reset ID's
+            //reset ID's
             var i : Int = 0
             for _ in MarkedPointArr
             {
@@ -796,7 +782,7 @@ extension ViewController: MarkedLocationDelegate {
                 i = i + 1
             }
             
-
+            
             
         }
     }
@@ -884,13 +870,13 @@ extension ViewController: MarkedLocationDelegate {
 
 extension ViewController: SearchDelegate {
     func deleteMarker(data: String) {
-       
- 
+        
+        
         var i: Int = 0
         
         for a in markedPointAnnotations
         {
-           
+            
             if a.title == data
             {
                 currentSelectedMarkedPointElementId = i
@@ -898,7 +884,7 @@ extension ViewController: SearchDelegate {
             
             i = i + 1
         }
-
+        
         currentSelectedMarkedPointAnnotation = markedPointAnnotations[currentSelectedMarkedPointElementId!]
         
         print("deleting...index = " + String(currentSelectedMarkedPointAnnotation.userData!))
@@ -910,37 +896,37 @@ extension ViewController: SearchDelegate {
         //reset i back to zero
         i = 0
         
-            //reset ID's
+        //reset ID's
         
-            for _ in MarkedPointArr
-            {
-                MarkedPointArr[i].id = i
-                i = i + 1
-            }
-            
-            i = 0
-            
-            for _ in markedPointAnnotations
-            {
-                markedPointAnnotations[i].userData = i
-                i = i + 1
-            }
-            
+        for _ in MarkedPointArr
+        {
+            MarkedPointArr[i].id = i
+            i = i + 1
+        }
+        
+        i = 0
+        
+        for _ in markedPointAnnotations
+        {
+            markedPointAnnotations[i].userData = i
+            i = i + 1
+        }
+        
         
     }
-
+    
 }
 
 extension ViewController: SettingsDelegate {
     
     func updateDefaultMarkerName(data: Int) {
-        if data == 0 {      
+        if data == 0 {
             settingDefaultMarkerdPointName = 0
         }
         else {
             settingDefaultMarkerdPointName = 1
         }
-   
+        
     }
     
     func updateSettingPanToCurrentLocationOnOpen(data: Bool) {
@@ -1020,9 +1006,9 @@ extension ViewController: SettingsDelegate {
             {
                 myMapView.removeOverlay(displayedPolyline!)
             }
-  
+            
         }
-      
+        
     }
     
     func loadSettings() {
@@ -1035,7 +1021,7 @@ extension ViewController: SettingsDelegate {
         if !(NSFileManager.defaultManager().fileExistsAtPath(pathToFile(kSettingsFileName)!.path!))
         {
             // If it doesn't, copy it from the default file in the Bundle
-           
+            
             if let bundlePath = NSBundle.mainBundle().pathForResource(defaultSettingsfileName, ofType: "plist") {
                 
                 let resultDictionary = NSMutableDictionary(contentsOfFile: bundlePath)
@@ -1043,17 +1029,17 @@ extension ViewController: SettingsDelegate {
                 print("\(defaultSettingsfileName) file is --> \(resultDictionary?.description)")
                 
                 do{
-                try
-                    fileManager.copyItemAtPath(bundlePath, toPath: (path?.path)!)
+                    try
+                        fileManager.copyItemAtPath(bundlePath, toPath: (path?.path)!)
                     
                     print("copy")
                     
                 }
                 catch let error as NSError
-                    {
-                        print("error : \(error)")
+                {
+                    print("error : \(error)")
                 }
-            
+                
                 
                 
                 
@@ -1072,52 +1058,52 @@ extension ViewController: SettingsDelegate {
         print("Loaded \(kSettingsFileName) file is --> \(resultDictionary?.description)")
         
         let myDict = NSDictionary(contentsOfFile: path!.path!)
-    
+        
+        
+        if let dict = myDict {
+            //loading values
             
-            if let dict = myDict {
-                //loading values
-                
-                
-                
-                if let tmpsettingDefaultMarkerdPointName = dict.objectForKey("DefaultMarkerdPointName") as? Int
-                {
-                   settingDefaultMarkerdPointName = tmpsettingDefaultMarkerdPointName
-                }
-                if let tmpsettingPanToCurrentLoctionOnOpen = dict.objectForKey("PanToCurrentLoctionOnOpen") as? Bool
-                {
-                    settingPanToCurrentLoctionOnOpen = tmpsettingPanToCurrentLoctionOnOpen
-                }
-                if let tmpsettingOpenMarkerDetailsAfterSearch = dict.objectForKey("OpenMarkerDetailsAfterSearch") as? Bool
-                {
-                    settingOpenMarkerDetailsAfterSearch = tmpsettingOpenMarkerDetailsAfterSearch
-                }
-                if let tmpsettingShowCompass = dict.objectForKey("ShowCompass") as? Bool
-                {
-                    settingShowCompass = tmpsettingShowCompass
-                }
-                if let tmpsettingShowScale = dict.objectForKey("ShowScale") as? Bool
-                {
-                    settingShowScale = tmpsettingShowScale
-                }
-                if let tmpsettingShowTraffic = dict.objectForKey("ShowTraffic") as? Bool
-                {
-                    settingShowTraffic = tmpsettingShowTraffic
-                }
-                if let tmpsettingMapType = dict.objectForKey("MapType") as? String
-                {
-                    settingMapType = tmpsettingMapType
-                }
-                //...
-            } else {
-                print("WARNING: Couldn't create dictionary from \(kSettingsFileName) Default values will be used!")
+            
+            
+            if let tmpsettingDefaultMarkerdPointName = dict.objectForKey("DefaultMarkerdPointName") as? Int
+            {
+                settingDefaultMarkerdPointName = tmpsettingDefaultMarkerdPointName
             }
+            if let tmpsettingPanToCurrentLoctionOnOpen = dict.objectForKey("PanToCurrentLoctionOnOpen") as? Bool
+            {
+                settingPanToCurrentLoctionOnOpen = tmpsettingPanToCurrentLoctionOnOpen
+            }
+            if let tmpsettingOpenMarkerDetailsAfterSearch = dict.objectForKey("OpenMarkerDetailsAfterSearch") as? Bool
+            {
+                settingOpenMarkerDetailsAfterSearch = tmpsettingOpenMarkerDetailsAfterSearch
+            }
+            if let tmpsettingShowCompass = dict.objectForKey("ShowCompass") as? Bool
+            {
+                settingShowCompass = tmpsettingShowCompass
+            }
+            if let tmpsettingShowScale = dict.objectForKey("ShowScale") as? Bool
+            {
+                settingShowScale = tmpsettingShowScale
+            }
+            if let tmpsettingShowTraffic = dict.objectForKey("ShowTraffic") as? Bool
+            {
+                settingShowTraffic = tmpsettingShowTraffic
+            }
+            if let tmpsettingMapType = dict.objectForKey("MapType") as? String
+            {
+                settingMapType = tmpsettingMapType
+            }
+            //...
+        } else {
+            print("WARNING: Couldn't create dictionary from \(kSettingsFileName) Default values will be used!")
+        }
         
         
         
         
         
     }
-
+    
     
     func saveSettings()
     {
@@ -1141,7 +1127,7 @@ extension ViewController: SettingsDelegate {
         
     }
     
-
+    
 }
 
 
