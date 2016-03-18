@@ -163,6 +163,18 @@ class SettingsViewController: UITableViewController {
         presentViewController(myAlert, animated: true, completion: nil)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        
+        //For Google Analytics
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "Settings")
+        
+        let eventTracker: NSObject = GAIDictionaryBuilder.createScreenView().build()
+        tracker.send(eventTracker as! [NSObject : AnyObject])
+        //For Google Analytics
+        
+        super.viewWillAppear(animated)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

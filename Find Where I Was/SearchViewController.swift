@@ -31,6 +31,19 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
           self.performSegueWithIdentifier("unwindSearchIdentifier", sender: self)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        
+        //For Google Analytics
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "Search")
+        
+        let eventTracker: NSObject = GAIDictionaryBuilder.createScreenView().build()
+        tracker.send(eventTracker as! [NSObject : AnyObject])
+        //For Google Analytics
+        
+        super.viewWillAppear(animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -11,7 +11,6 @@ import MapKit
 import CoreLocation
 import GoogleMobileAds
 
-
 //User Settings
 var settingDefaultMarkerdPointName : Int = 1
 var settingPanToCurrentLoctionOnOpen : Bool = true
@@ -102,9 +101,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         {
             if let searchController = segue.sourceViewController as? SearchViewController
             {
-                //print (searchController.selectedMark)
-                
-                
                 if (searchController.OpenMarkerDetailsForEdit)
                 {
                     
@@ -190,13 +186,13 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                     
                 }
                 
-                
             }
         }
         
         
     }
     
+   
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -288,7 +284,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         loadSettings()
         
-        
         if settingShowCompass
         {
             myMapView.showsCompass = true
@@ -364,32 +359,75 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidBecomeActive:", name:UIApplicationDidBecomeActiveNotification, object:UIApplication.sharedApplication())
         
         locationManager.delegate = self
-        //locationManager.requestAlwaysAuthorization()
         locationManager.requestWhenInUseAuthorization()
-        
-        //NSLocationWhenInUseUsageDescription
-        
+
         if CLLocationManager.locationServicesEnabled() {
-            
-            
-            //locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-            
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.requestLocation()
             locationManager.startUpdatingLocation()
+            locationManager.activityType = CLActivityType.Fitness
             
             statusLabel.text = "Searching For Your Location..."
         }
         
         self.interstitial = createAndLoadInterstitial()
-        
     }
     
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print (error.description)
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
+    {
+        currentLocation = CLLocationCoordinate2D(latitude : locations.last!.coordinate.latitude, longitude: locations.last!.coordinate.longitude)
+        
+        if let ha  = manager.location?.horizontalAccuracy
+        {
+            if boolAutoPan
+            {
+                let myRegion = MKCoordinateRegionMakeWithDistance(currentLocation!, ha , ha)
+                myMapView.setRegion(myRegion, animated: true)
+            }
+            else
+            {
+                if boolAutoPanOnResume
+                {
+                    let myRegion = MKCoordinateRegionMakeWithDistance(currentLocation!, ha , ha)
+                    myMapView.setRegion(myRegion, animated: true)
+                    boolAutoPanOnResume = false
+                }
+                
+            }
+            if locationPointAnnotation.title != nil
+            {
+                myMapView.removeAnnotation(locationPointAnnotation)
+            }
+            
+            
+            //Reverse Geocode
+            CLGeocoder().reverseGeocodeLocation(locations.last!,
+                completionHandler: {(placemarks:[CLPlacemark]?, error:NSError?) -> Void in
+                    if let placemarks = placemarks {
+                        let placemark = placemarks[0]
+                        self.addressLabel.text = self.formatAddressFromPlacemark(placemark)
+                        
+                        self.sourceMapItem = MKMapItem(placemark:  MKPlacemark(coordinate: placemark.location!.coordinate,
+                            addressDictionary: placemark.addressDictionary as! [String:AnyObject]?))
+                    }
+            })
+            
+            
+            statusLabel.text = "Found Your Location"
+        }
+
+    }
+
     func createAndLoadInterstitial() -> GADInterstitial
     {
         let interstitial = GADInterstitial(adUnitID: "ca-app-pub-0604146100849518/4655687201")
         
         let request = GADRequest()
+        
         // Requests test ads on test devices.
         let devices: [String] = ["7fc59f853d9dbd8193c2fb6dd425c689", kGADSimulatorID as! String]
         request.testDevices = devices
@@ -447,118 +485,40 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         myArray.writeToURL(pathToFile(kFileName)!, atomically: true)
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print (error.description)
-        
-    }
-    
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
-    {
-        
-        currentLocation = CLLocationCoordinate2D(latitude : locations.last!.coordinate.latitude, longitude: locations.last!.coordinate.longitude)
-        
-        
-        if let ha  = manager.location?.horizontalAccuracy
-        {
-            
-            if boolAutoPan
-            {
-                let myRegion = MKCoordinateRegionMakeWithDistance(currentLocation!, ha , ha)
-                
-                myMapView.setRegion(myRegion, animated: true)
-            }
-            else
-            {
-                if boolAutoPanOnResume
-                {
-                    let myRegion = MKCoordinateRegionMakeWithDistance(currentLocation!, ha , ha)
-                    
-                    myMapView.setRegion(myRegion, animated: true)
-                    
-                    boolAutoPanOnResume = false
-                }
-                
-            }
-            if locationPointAnnotation.title != nil
-            {
-                myMapView.removeAnnotation(locationPointAnnotation)
-            }
-            
-            //locationPointAnnotation.coordinate = currentLocation!
-            //locationPointAnnotation.title = "Your Location"
-            //myMapView.addAnnotation(locationPointAnnotation)
-            
-            
-            //MKCircle
-            if circle != nil
-            {
-                myMapView.removeOverlay(circle!)
-            }
-            circle = MKCircle(centerCoordinate: currentLocation!, radius: 10)
-            myMapView.addOverlay(circle!)
-            
-            
-            //Reverse Geocode
-            CLGeocoder().reverseGeocodeLocation(locations.last!,
-                completionHandler: {(placemarks:[CLPlacemark]?, error:NSError?) -> Void in
-                    if let placemarks = placemarks {
-                        let placemark = placemarks[0]
-                        self.addressLabel.text = self.formatAddressFromPlacemark(placemark)
-                        
-                        self.sourceMapItem = MKMapItem(placemark:  MKPlacemark(coordinate: placemark.location!.coordinate,
-                            addressDictionary: placemark.addressDictionary as! [String:AnyObject]?))
-                    }
-            })
-            
-            
-            
-            statusLabel.text = "Found Your Location"
-            //locationManager.stopUpdatingLocation()
-            
-        }
-        
-        
-    }
     
     func mapView(MapView: MKMapView, regionDidChangeAnimated animated: Bool)
     {
-        
-        //print ("regionDidChangeAnimated")
-        
-        userZoom = myMapView.region.span.latitudeDelta
-        
-        //print (userZoom)
-        
+        userZoom = myMapView.region.span.latitudeDelta        
     }
     
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView?
     {
+       
+        if (annotation === myMapView.userLocation)
+        {
+            //Show the user location
+            return nil;
+        }
+        
+        
         let defaultPinID = "myPinID"
-        //var pinView = myMapView.dequeueReusableAnnotationViewWithIdentifier(defaultPinID)?
         var pinView = myMapView.dequeueReusableAnnotationViewWithIdentifier(defaultPinID) as! MKPinAnnotationView?
         
         if pinView == nil
         {
-            
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: defaultPinID)
         }
         
+        
         if annotation.title! != "Your Location" && annotation.title! != "Current Location"
         {
-            
-            //print ("pinView?.annotation?.title = " + ((pinView?.annotation?.title)!)!)
             pinView?.pinTintColor = UIColor.redColor()
             pinView?.canShowCallout = true
             pinView?.animatesDrop = true
             pinView?.draggable = true
             
-            
-            
-            //pinView?.leftCalloutAccessoryView = UIButton(type: .DetailDisclosure)
             pinView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
-            //pinView?.detailCalloutAccessoryView = UIButton(type: .DetailDisclosure)
-            
         }
         else
         {
@@ -680,7 +640,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
         }
         
-        
         //showSearchDialog
         if segue.identifier == "showSearchDialog"
         {
@@ -723,9 +682,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
             for a in markedPointAnnotations
             {
-                //print (a.title)
-                //print (view.annotation?.title)
-                
                 if a.title == (view.annotation?.title)!
                 {
                     currentSelectedMarkedPointElementId = i
@@ -738,21 +694,15 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         if newState == .Ending
         {
-            //print ("End drag")
-            
             MarkedPointArr[currentSelectedMarkedPointElementId!].lat = (view.annotation?.coordinate.latitude)!
             MarkedPointArr[currentSelectedMarkedPointElementId!].lng = (view.annotation?.coordinate.longitude)!
-            
         }
     }
     
 }
 
-
-
 extension ViewController: MarkedLocationDelegate {
     func updateData(data: String) {
-        
         
         print(currentSelectedMarkedPointElementId)
         
@@ -886,13 +836,8 @@ extension ViewController: MarkedLocationDelegate {
         let timeString = time.formatted()
         //totalTimeLabel.text = "Total Time: \(timeString)"
         
-        
         print ("Total Time: \(timeString)")
     }
-    
-    
-    
-    
 }
 
 extension ViewController: SearchDelegate {
@@ -938,10 +883,7 @@ extension ViewController: SearchDelegate {
             markedPointAnnotations[i].userData = i
             i = i + 1
         }
-        
-        
     }
-    
 }
 
 extension ViewController: SettingsDelegate {
@@ -1056,6 +998,7 @@ extension ViewController: SettingsDelegate {
                 print("\(defaultSettingsfileName) file is --> \(resultDictionary?.description)")
                 
                 do{
+                    
                     try
                         fileManager.copyItemAtPath(bundlePath, toPath: (path?.path)!)
                     
@@ -1124,10 +1067,7 @@ extension ViewController: SettingsDelegate {
         } else {
             print("WARNING: Couldn't create dictionary from \(kSettingsFileName) Default values will be used!")
         }
-        
-        
-        
-        
+ 
         
     }
     
@@ -1154,7 +1094,19 @@ extension ViewController: SettingsDelegate {
         
     }
     
-    
+    override func viewWillAppear(animated: Bool) {
+        
+        //For Google Analytics
+        let tracker = GAI.sharedInstance().defaultTracker
+        tracker.set(kGAIScreenName, value: "Map")
+        
+        let eventTracker: NSObject = GAIDictionaryBuilder.createScreenView().build()
+        tracker.send(eventTracker as! [NSObject : AnyObject])
+        //For Google Analytics
+        
+        super.viewWillAppear(animated)
+        
+    }
 }
 
 
