@@ -93,6 +93,10 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell?
         
+        //  06/05/2016 - Font changed
+        cell!.textLabel!.font = UIFont(name:"Avenir", size:12)
+
+        
         if self.resultSearchController.active
         {
             
@@ -135,24 +139,11 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
    
     
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    
     // Override to support conditional editing of the table view.
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    
-
     
     
     // Override to support editing the table view.
@@ -179,8 +170,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
 
-    
-    
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in

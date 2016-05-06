@@ -74,7 +74,6 @@ class PopoverContentViewController: UIViewController {
         }
         
 
-        
         if boolNameAlready
         {
             addressLabel.text = "Try another name"

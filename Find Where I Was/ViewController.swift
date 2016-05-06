@@ -171,8 +171,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                                 
                                 
                                 boolGotoDetailsOnviewDidLoad = true
-                                
-                                
+  
                             }
                             
                             
@@ -192,7 +191,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
     }
     
-   
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -205,8 +203,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             //Go
             self.performSegueWithIdentifier("ShowPopoverFromPin", sender: self)
         }
-        
-        
+    
     }
     
     @IBAction func MarkLocationButtonTapped(sender: AnyObject) {
@@ -273,8 +270,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
             
         }
+        
+        //06/05/2016 - Save after a point is added
+        saveData()
     }
-    
     
     
     override func viewDidLoad() {
@@ -354,9 +353,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidEnterBackground:", name:UIApplicationDidEnterBackgroundNotification, object:UIApplication.sharedApplication())
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidEnterBackground(_:)), name:UIApplicationDidEnterBackgroundNotification, object:UIApplication.sharedApplication())
         //applicationDidBecomeActive
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidBecomeActive:", name:UIApplicationDidBecomeActiveNotification, object:UIApplication.sharedApplication())
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidBecomeActive(_:)), name:UIApplicationDidBecomeActiveNotification, object:UIApplication.sharedApplication())
         
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -429,7 +428,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         let request = GADRequest()
         
         // Requests test ads on test devices.
-        let devices: [String] = ["7fc59f853d9dbd8193c2fb6dd425c689", kGADSimulatorID as! String]
+        let devices: [String] = ["7fc59f853d9dbd8193c2fb6dd425c689", "e17c6fd140eeebaa9972b80f81385489", kGADSimulatorID as! String]
         request.testDevices = devices
         
         interstitial.loadRequest(request)
@@ -461,13 +460,16 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     func applicationDidEnterBackground(notification: NSNotification)
     {
+        saveData()
+    }
+    
+    func saveData()
+    {
         //Save data
         let myArray = NSMutableArray()
         
         var strTmp : String?
         var i : Int = 0
-        
-        print ("Saving Data...")
         
         for MarkedPoint in MarkedPointArr
         {
@@ -478,19 +480,16 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             print(strTmp)
             myArray.addObject(strTmp!)
             i = i + 1
-            
         }
         
-        
         myArray.writeToURL(pathToFile(kFileName)!, atomically: true)
+        //Save data
     }
-    
     
     func mapView(MapView: MKMapView, regionDidChangeAnimated animated: Bool)
     {
         userZoom = myMapView.region.span.latitudeDelta        
     }
-    
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView?
     {
@@ -731,12 +730,11 @@ extension ViewController: MarkedLocationDelegate {
     }
     
     
-    
+    //deleteData from popover view
     func deleteData(boolDelete: Bool) {
         if boolDelete{
-            
-            
-            print("deleting...index = " + String(currentSelectedMarkedPointAnnotation.userData!))
+
+            //print("deleting...index = " + String(currentSelectedMarkedPointAnnotation.userData!))
             
             markedPointAnnotations.removeAtIndex(currentSelectedMarkedPointAnnotation.userData!)
             MarkedPointArr.removeAtIndex(currentSelectedMarkedPointAnnotation.userData! )
@@ -758,9 +756,9 @@ extension ViewController: MarkedLocationDelegate {
                 markedPointAnnotations[i].userData = i
                 i = i + 1
             }
+    
             
-            
-            
+            saveData()
         }
     }
     
@@ -883,6 +881,9 @@ extension ViewController: SearchDelegate {
             markedPointAnnotations[i].userData = i
             i = i + 1
         }
+        
+        //06/05/2016 - Save after a point is deleted
+        saveData()
     }
 }
 

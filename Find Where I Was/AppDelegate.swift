@@ -29,6 +29,87 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
         // Google Analytics.....
         
+        
+        
+        
+        
+        //Set NSURLIsExcludedFromBackupKey key on all files in LibraryDirectory
+        var directories = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.AllDomainsMask, true)
+        if let libraryDirectory = directories.first {
+            do {
+                let documents = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(libraryDirectory)
+                
+                for files in documents {
+                    let urlForm = NSURL.fileURLWithPath(libraryDirectory + "/" + files)
+                    
+                    do{
+                        try  NSFileManager.defaultManager().addSkipBackupAttributeToItemAtURL(NSURL.fileURLWithPath(urlForm.path!));
+                    }
+                    catch{
+                         print ("Error setting RO attribute")
+                    }
+                }
+            }
+            catch { print("can't retrieve contents")
+            }
+        }
+        //Set NSURLIsExcludedFromBackupKey key on all files in LibraryDirectory
+        
+        
+        //List contents of documentDirectory including state of NSURLIsExcludedFromBackupKey key
+        
+            print("Listing contents of documentDirectory...")
+            
+            directories = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true)
+            
+            if let documentDirectory = directories.first {
+                do {
+                    let documents = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(documentDirectory)
+                    
+                    for files in documents {
+                        let urlForm = NSURL.fileURLWithPath(documentDirectory + "/" + files)
+                        do {
+                            try print("\(files): \(urlForm.resourceValuesForKeys([NSURLIsExcludedFromBackupKey]))")
+                        }
+                            
+                        catch { print("can't find key") }
+                    }
+                }
+                catch { print("can't retrieve contents")
+                }
+            }
+            print("Finished Listing contents of documentDirectory...")
+        
+        //List contents of documentDirectory including state of NSURLIsExcludedFromBackupKey key
+        
+        
+        //List contents of LibraryDirectory including state of NSURLIsExcludedFromBackupKey key
+        
+            print("Listing contents of LibraryDirectory...")
+            
+            directories = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.AllDomainsMask, true)
+            
+            if let libraryDirectory = directories.first {
+                do {
+                    let documents = try NSFileManager.defaultManager().contentsOfDirectoryAtPath(libraryDirectory)
+                    
+                    for files in documents {
+                        let urlForm = NSURL.fileURLWithPath(libraryDirectory + "/" + files)
+                        do {
+                            try print("\(files): \(urlForm.resourceValuesForKeys([NSURLIsExcludedFromBackupKey]))")
+                        }
+                            
+                        catch { print("can't find key") }
+                    }
+                }
+                catch { print("can't retrieve contents")
+                }
+            }
+            print("Finished Listing contents of LibraryDirectory...")
+        
+        //List contents of LibraryDirectory including state of NSURLIsExcludedFromBackupKey key
+        
+        
         return true
     }
 
@@ -54,6 +135,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
-}
+   
+}   
+    
+    extension NSFileManager{
+        func addSkipBackupAttributeToItemAtURL(url:NSURL) throws {
+            try url.setResourceValue(true, forKey: NSURLIsExcludedFromBackupKey)
+        }
+    }
 
