@@ -94,8 +94,9 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell?
         
         //  06/05/2016 - Font changed
-        cell!.textLabel!.font = UIFont(name:"Avenir", size:12)
-
+        cell!.textLabel!.font = UIFont.systemFontOfSize(14, weight: UIFontWeightMedium)
+        //UIFont(name:"Avenir", size:14)
+        
         
         if self.resultSearchController.active
         {

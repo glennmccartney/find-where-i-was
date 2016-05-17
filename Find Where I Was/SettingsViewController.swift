@@ -35,7 +35,26 @@ class SettingsViewController: UITableViewController {
     @IBOutlet weak var OutletShowTraffic: UISwitch!
     @IBOutlet weak var OutletShowScale: UISwitch!
     @IBOutlet weak var OutletMapType: UISegmentedControl!
+    @IBOutlet weak var btnDone: UIButton!
+    @IBOutlet weak var btnDeleteAll: UIButton!
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do view setup here.
+        
+        
+        btnDone.layer.cornerRadius = 6
+        btnDone.layer.borderWidth = 1
+        btnDone.layer.borderColor = self.view.tintColor.CGColor
+        
+        
+        btnDeleteAll.layer.cornerRadius = 6
+        btnDeleteAll.layer.borderWidth = 1
+        btnDeleteAll.layer.borderColor = self.view.tintColor.CGColor
+        
+        reloadSettings()
+    }
     
     
     @IBAction func doneButton(sender: AnyObject) {
@@ -103,7 +122,7 @@ class SettingsViewController: UITableViewController {
         let myAlert = UIAlertController(title: "Are You Sure?", message: "Are you sure you wish to delete all user data? This cannot be undone", preferredStyle:UIAlertControllerStyle.Alert)
         let yes = UIAlertAction(title: "Yes", style:.Default, handler: {(alert:
             UIAlertAction!) in
-            print("Yes button was pressed")
+            //print("Yes button was pressed")
             
             //Delete User data
            
@@ -114,12 +133,12 @@ class SettingsViewController: UITableViewController {
                 try
                 
                     fileManager.removeItemAtPath(pathToFile(kFileName)!.path!)
-                    print("Remove 1 successful")
+                    //print("Remove 1 successful")
    
             }
-             catch let error as NSError
-             {
-                print("Remove failed: \(error.localizedDescription)")
+            catch let error as NSError
+            {
+                //print("Remove failed: \(error.localizedDescription)")
             }
             
             
@@ -127,7 +146,7 @@ class SettingsViewController: UITableViewController {
                 try
                     
                     fileManager.removeItemAtPath(pathToFile(kSettingsFileName)!.path!)
-                print("Remove 2 successful")
+                //print("Remove 2 successful")
                 
             }
             catch let error as NSError
@@ -151,9 +170,9 @@ class SettingsViewController: UITableViewController {
             self.reloadSettings()
             
         })
-        let no = UIAlertAction(title: "No", style:.Default, handler: {(alert:
-            UIAlertAction!) in
-            print("No button was pressed")
+        let no = UIAlertAction(title: "No", style:.Default, handler: {(alert: UIAlertAction!) in
+            
+            //print("No button was pressed")
             //Do Nothing...
         })
         
@@ -174,15 +193,6 @@ class SettingsViewController: UITableViewController {
         //For Google Analytics
         
         super.viewWillAppear(animated)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do view setup here.
-        
-     
-        
-        reloadSettings()
     }
     
     func reloadSettings()

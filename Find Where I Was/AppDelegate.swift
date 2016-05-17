@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Optional: configure GAI options.
         let gai = GAI.sharedInstance()
         gai.trackUncaughtExceptions = true  // report uncaught exceptions
-        gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
+        gai.logger.logLevel = GAILogLevel.None  // remove before app release
         // Google Analytics.....
         
         
@@ -53,11 +53,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             catch { print("can't retrieve contents")
             }
         }
+        directories = [""]
         //Set NSURLIsExcludedFromBackupKey key on all files in LibraryDirectory
         
         
-        //List contents of documentDirectory including state of NSURLIsExcludedFromBackupKey key
         
+        
+        //List contents of documentDirectory including state of NSURLIsExcludedFromBackupKey key
+        /*
             print("Listing contents of documentDirectory...")
             
             directories = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true)
@@ -79,12 +82,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
             print("Finished Listing contents of documentDirectory...")
-        
+        */
         //List contents of documentDirectory including state of NSURLIsExcludedFromBackupKey key
         
         
-        //List contents of LibraryDirectory including state of NSURLIsExcludedFromBackupKey key
         
+        
+        //List contents of LibraryDirectory including state of NSURLIsExcludedFromBackupKey key
+        /*
             print("Listing contents of LibraryDirectory...")
             
             directories = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.LibraryDirectory, NSSearchPathDomainMask.AllDomainsMask, true)
@@ -108,7 +113,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Finished Listing contents of LibraryDirectory...")
         
         //List contents of LibraryDirectory including state of NSURLIsExcludedFromBackupKey key
-        
+        */
         
         return true
     }
