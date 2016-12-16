@@ -10,14 +10,14 @@ import UIKit
 
 
 protocol SettingsDelegate {
-    func updateDefaultMarkerName(data: Int)
-    func updateSettingPanToCurrentLocationOnOpen(data: Bool)
-    func updateSettingDeleteAllUserData(data: Bool)
-    func updateSettingOpenMarkerDetailsAfterSearch(data: Bool)
-    func updateSettingShowCompass(data: Bool)
-    func updateSettingShowScale(data: Bool)
-    func updateSettingShowTraffic(data: Bool)
-    func updateSettingMapType(data: Int)
+    func updateDefaultMarkerName(_ data: Int)
+    func updateSettingPanToCurrentLocationOnOpen(_ data: Bool)
+    func updateSettingDeleteAllUserData(_ data: Bool)
+    func updateSettingOpenMarkerDetailsAfterSearch(_ data: Bool)
+    func updateSettingShowCompass(_ data: Bool)
+    func updateSettingShowScale(_ data: Bool)
+    func updateSettingShowTraffic(_ data: Bool)
+    func updateSettingMapType(_ data: Int)
     
     func loadSettings()
     func saveSettings()
@@ -46,106 +46,106 @@ class SettingsViewController: UITableViewController {
         
         btnDone.layer.cornerRadius = 6
         btnDone.layer.borderWidth = 1
-        btnDone.layer.borderColor = self.view.tintColor.CGColor
+        btnDone.layer.borderColor = self.view.tintColor.cgColor
         
         
         btnDeleteAll.layer.cornerRadius = 6
         btnDeleteAll.layer.borderWidth = 1
-        btnDeleteAll.layer.borderColor = self.view.tintColor.CGColor
+        btnDeleteAll.layer.borderColor = self.view.tintColor.cgColor
         
         reloadSettings()
     }
     
     
-    @IBAction func doneButton(sender: AnyObject) {
+    @IBAction func doneButton(_ sender: AnyObject) {
         //print ("Done button clicked")
         
         delegate?.saveSettings()
         
-        self.performSegueWithIdentifier("unwindIdentifier", sender: self)
+        self.performSegue(withIdentifier: "unwindIdentifier", sender: self)
     }
     
     
-    @IBAction func DefaultMarkerName(sender: AnyObject) {
+    @IBAction func DefaultMarkerName(_ sender: AnyObject) {
         delegate?.updateDefaultMarkerName(sender.selectedSegmentIndex)
         
      }
     
-    @IBAction func PanOnOpen(sender: AnyObject) {
+    @IBAction func PanOnOpen(_ sender: AnyObject) {
         let mySwitch = sender as! UISwitch
-        if let tempBool : Bool = mySwitch.on
+        if let tempBool : Bool = mySwitch.isOn
         {
             delegate?.updateSettingPanToCurrentLocationOnOpen(tempBool)
         }
     }
     
-    @IBAction func MarkerDetailsAfterSearch(sender: AnyObject) {
+    @IBAction func MarkerDetailsAfterSearch(_ sender: AnyObject) {
         let mySwitch = sender as! UISwitch
-        if let tempBool : Bool = mySwitch.on
+        if let tempBool : Bool = mySwitch.isOn
         {
             delegate?.updateSettingOpenMarkerDetailsAfterSearch(tempBool)
         }
     }
     
-    @IBAction func ShowCompass(sender: AnyObject) {
+    @IBAction func ShowCompass(_ sender: AnyObject) {
         let mySwitch = sender as! UISwitch
-        if let tempBool : Bool = mySwitch.on
+        if let tempBool : Bool = mySwitch.isOn
         {
             delegate?.updateSettingShowCompass(tempBool)
         }
     }
     
-    @IBAction func ShowTraffic(sender: AnyObject) {
+    @IBAction func ShowTraffic(_ sender: AnyObject) {
         let mySwitch = sender as! UISwitch
-        if let tempBool : Bool = mySwitch.on
+        if let tempBool : Bool = mySwitch.isOn
         {
             delegate?.updateSettingShowTraffic(tempBool)
         }
     }
     
-    @IBAction func ShowScale(sender: AnyObject) {
+    @IBAction func ShowScale(_ sender: AnyObject) {
         let mySwitch = sender as! UISwitch
-        if let tempBool : Bool = mySwitch.on
+        if let tempBool : Bool = mySwitch.isOn
         {
             delegate?.updateSettingShowScale(tempBool)
         }
     }
     
-    @IBAction func MapTypeChanged(sender: AnyObject) {
+    @IBAction func MapTypeChanged(_ sender: AnyObject) {
             delegate?.updateSettingMapType(sender.selectedSegmentIndex)
         
     }
     
     
-    @IBAction func deleteAllUserData(sender: AnyObject) {
+    @IBAction func deleteAllUserData(_ sender: AnyObject) {
         
-        let myAlert = UIAlertController(title: "Are You Sure?", message: "Are you sure you wish to delete all user data? This cannot be undone", preferredStyle:UIAlertControllerStyle.Alert)
-        let yes = UIAlertAction(title: "Yes", style:.Default, handler: {(alert:
+        let myAlert = UIAlertController(title: "Are You Sure?", message: "Are you sure you wish to delete all user data? This cannot be undone", preferredStyle:UIAlertControllerStyle.alert)
+        let yes = UIAlertAction(title: "Yes", style:.default, handler: {(alert:
             UIAlertAction!) in
             //print("Yes button was pressed")
             
             //Delete User data
            
             
-            let fileManager = NSFileManager.defaultManager()
+            let fileManager = FileManager.default
             
             do{
                 try
                 
-                    fileManager.removeItemAtPath(pathToFile(kFileName)!.path!)
+                    fileManager.removeItem(atPath: pathToFile(kFileName)!.path!)
                     //print("Remove 1 successful")
    
             }
             catch let error as NSError
             {
-                //print("Remove failed: \(error.localizedDescription)")
+                print("Remove failed: \(error.localizedDescription)")
             }
             
             
             do{
                 try
                     
-                    fileManager.removeItemAtPath(pathToFile(kSettingsFileName)!.path!)
+                    fileManager.removeItem(atPath: pathToFile(kSettingsFileName)!.path!)
                 //print("Remove 2 successful")
                 
             }
@@ -170,7 +170,7 @@ class SettingsViewController: UITableViewController {
             self.reloadSettings()
             
         })
-        let no = UIAlertAction(title: "No", style:.Default, handler: {(alert: UIAlertAction!) in
+        let no = UIAlertAction(title: "No", style:.default, handler: {(alert: UIAlertAction!) in
             
             //print("No button was pressed")
             //Do Nothing...
@@ -179,17 +179,17 @@ class SettingsViewController: UITableViewController {
         myAlert.addAction(no)
         myAlert.addAction(yes)
         
-        presentViewController(myAlert, animated: true, completion: nil)
+        present(myAlert, animated: true, completion: nil)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         //For Google Analytics
         let tracker = GAI.sharedInstance().defaultTracker
-        tracker.set(kGAIScreenName, value: "Settings")
+        tracker?.set(kGAIScreenName, value: "Settings")
         
         let eventTracker: NSObject = GAIDictionaryBuilder.createScreenView().build()
-        tracker.send(eventTracker as! [NSObject : AnyObject])
+        tracker?.send(eventTracker as! [AnyHashable: Any])
         //For Google Analytics
         
         super.viewWillAppear(animated)
@@ -199,47 +199,47 @@ class SettingsViewController: UITableViewController {
     {
         if settingPanToCurrentLoctionOnOpen
         {
-            OutletAutoPanOnLoad.on = true
+            OutletAutoPanOnLoad.isOn = true
         }
         else
         {
-            OutletAutoPanOnLoad.on = false
+            OutletAutoPanOnLoad.isOn = false
         }
         
         if settingOpenMarkerDetailsAfterSearch
         {
-            OutletMarkerDetailsAfterSearch.on = true
+            OutletMarkerDetailsAfterSearch.isOn = true
         }
         else
         {
-            OutletMarkerDetailsAfterSearch.on = false
+            OutletMarkerDetailsAfterSearch.isOn = false
         }
         
         if settingShowCompass
         {
-            OutletShowCompass.on = true
+            OutletShowCompass.isOn = true
         }
         else
         {
-            OutletShowCompass.on = false
+            OutletShowCompass.isOn = false
         }
         
         if settingShowTraffic
         {
-            OutletShowTraffic.on = true
+            OutletShowTraffic.isOn = true
         }
         else
         {
-            OutletShowTraffic.on = false
+            OutletShowTraffic.isOn = false
         }
         
         if settingShowScale
         {
-            OutletShowScale.on = true
+            OutletShowScale.isOn = true
         }
         else
         {
-            OutletShowScale.on = false
+            OutletShowScale.isOn = false
         }
         
         if settingDefaultMarkerdPointName == 0

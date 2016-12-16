@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SearchDelegate {
-    func deleteMarker(data: String)
+    func deleteMarker(_ data: String)
 }
 
 class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchResultsUpdating {
@@ -27,18 +27,18 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var myTableView: UITableView!
        
     
-    @IBAction func backButtonTapped(sender: AnyObject) {
-          self.performSegueWithIdentifier("unwindSearchIdentifier", sender: self)
+    @IBAction func backButtonTapped(_ sender: AnyObject) {
+          self.performSegue(withIdentifier: "unwindSearchIdentifier", sender: self)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         //For Google Analytics
         let tracker = GAI.sharedInstance().defaultTracker
-        tracker.set(kGAIScreenName, value: "Search")
+        tracker?.set(kGAIScreenName, value: "Search")
         
         let eventTracker: NSObject = GAIDictionaryBuilder.createScreenView().build()
-        tracker.send(eventTracker as! [NSObject : AnyObject])
+        tracker?.send(eventTracker as! [AnyHashable: Any])
         //For Google Analytics
         
         super.viewWillAppear(animated)
@@ -69,14 +69,14 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     // MARK: - Table view data source
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if self.resultSearchController.active
+        if self.resultSearchController.isActive
         {
             return self.filteredarrMarkedLocationNames.count
         }
@@ -88,17 +88,17 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as UITableViewCell?
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell?
         
         //  06/05/2016 - Font changed
-        cell!.textLabel!.font = UIFont.systemFontOfSize(14, weight: UIFontWeightMedium)
+        cell!.textLabel!.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
         //UIFont(name:"Avenir", size:14)
         
         
-        if self.resultSearchController.active
+        if self.resultSearchController.isActive
         {
             
             cell?.textLabel?.text = self.filteredarrMarkedLocationNames[indexPath.row]
@@ -113,13 +113,13 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         
-        self.filteredarrMarkedLocationNames.removeAll(keepCapacity: false)
+        self.filteredarrMarkedLocationNames.removeAll(keepingCapacity: false)
         
         let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchController.searchBar.text!)
         
-        let array = (self.arrMarkedLocationNames as NSArray).filteredArrayUsingPredicate(searchPredicate)
+        let array = (self.arrMarkedLocationNames as NSArray).filtered(using: searchPredicate)
         
         self.filteredarrMarkedLocationNames = array as! [String]
         
@@ -127,29 +127,29 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
+        let currentCell = tableView.cellForRow(at: indexPath)! as UITableViewCell
         
         print ("You clicked on \(currentCell.textLabel?.text)")
         
         selectedMark = currentCell.textLabel?.text
         
-        self.performSegueWithIdentifier("unwindSearchIdentifier", sender: self)
+        self.performSegue(withIdentifier: "unwindSearchIdentifier", sender: self)
         
     }
    
     
     // Override to support conditional editing of the table view.
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
     
     
     // Override to support editing the table view.
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
             
             /*
             // Delete the row from the data source
@@ -161,7 +161,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             */
             
             
-        } else if editingStyle == .Insert {
+        } else if editingStyle == .insert {
             
             
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -172,37 +172,37 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
 
 
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:IndexPath) -> Void in
             //TODO: edit the row at indexPath here
             print ("Edit")
             
             self.OpenMarkerDetailsForEdit = true
             
-            let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
+            let currentCell = tableView.cellForRow(at: indexPath)! as UITableViewCell
             self.selectedMark = currentCell.textLabel?.text
             
-            self.performSegueWithIdentifier("unwindSearchIdentifier", sender: self)
+            self.performSegue(withIdentifier: "unwindSearchIdentifier", sender: self)
             
             
             
         }
-        editAction.backgroundColor = UIColor.blueColor()
+        editAction.backgroundColor = UIColor.blue
         
         
-        let deleteAction = UITableViewRowAction(style: .Normal, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+        let deleteAction = UITableViewRowAction(style: .normal, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:IndexPath) -> Void in
             //TODO: Delete the row at indexPath here
             
             // Delete the row from the data source
-            self.arrMarkedLocationNames.removeAtIndex(indexPath.row)
-            let currentCell = tableView.cellForRowAtIndexPath(indexPath)! as UITableViewCell
+            self.arrMarkedLocationNames.remove(at: indexPath.row)
+            let currentCell = tableView.cellForRow(at: indexPath)! as UITableViewCell
             self.delegate?.deleteMarker((currentCell.textLabel?.text)!)
             
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            tableView.deleteRows(at: [indexPath], with: .fade)
             
             
         }
-        deleteAction.backgroundColor = UIColor.redColor()
+        deleteAction.backgroundColor = UIColor.red
         
         return [editAction,deleteAction]
     }

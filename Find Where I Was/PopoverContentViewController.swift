@@ -11,9 +11,9 @@ import MapKit
 import AudioToolbox
 
 protocol MarkedLocationDelegate {
-    func updateData(data: String)
-    func deleteData(data: Bool)
-    func takeMeHere(data: MKMapItem)
+    func updateData(_ data: String)
+    func deleteData(_ data: Bool)
+    func takeMeHere(_ data: MKMapItem)
 }
 
 class PopoverContentViewController: UIViewController {
@@ -38,28 +38,28 @@ class PopoverContentViewController: UIViewController {
   	
 
     
-    @IBAction func textEditingChanged(sender: AnyObject) {
+    @IBAction func textEditingChanged(_ sender: AnyObject) {
 
         //Dont allow the name to be saved if itis empty or it already exisits.
         if ((markedLocationName.text! != "") && (!checkIfNameExisits(markedLocationName.text!)))
         {
-            outletSaveButton.enabled = true
+            outletSaveButton.isEnabled = true
         }
         else
         {
-            outletSaveButton.enabled = false
+            outletSaveButton.isEnabled = false
         }
     }
     
     
-    @IBAction func BackButton(sender: AnyObject) {
+    @IBAction func BackButton(_ sender: AnyObject) {
         
-        self.performSegueWithIdentifier("unwindIdentifier", sender: self)
+        self.performSegue(withIdentifier: "unwindIdentifier", sender: self)
     }
     
     
     
-    @IBAction func saveButton(sender: AnyObject) {
+    @IBAction func saveButton(_ sender: AnyObject) {
         
         //check if the name already exists...
         var boolNameAlready = false
@@ -86,26 +86,26 @@ class PopoverContentViewController: UIViewController {
             addressLabel.text = ""
             EstimatedAddress.text = ""
             self.delegate?.updateData(markedLocationName.text!)
-            self.performSegueWithIdentifier("unwindIdentifier", sender: self)
+            self.performSegue(withIdentifier: "unwindIdentifier", sender: self)
         }
     
     }
     
     
-    @IBAction func deleteButton(sender: AnyObject) {
+    @IBAction func deleteButton(_ sender: AnyObject) {
         print ("delete clicked")
         
         //To-Do : Add an "Are You sure?" message
         
         
-        let myAlert = UIAlertController(title: "Are you sure?", message: "Are you sure you wish to delete this marker?", preferredStyle:UIAlertControllerStyle.Alert)
-        let yes = UIAlertAction(title: "Yes", style:.Default, handler: {(alert:
+        let myAlert = UIAlertController(title: "Are you sure?", message: "Are you sure you wish to delete this marker?", preferredStyle:UIAlertControllerStyle.alert)
+        let yes = UIAlertAction(title: "Yes", style:.default, handler: {(alert:
             UIAlertAction!) in
             
             self.delegate?.deleteData(true)
-            self.performSegueWithIdentifier("unwindIdentifier", sender: self)
+            self.performSegue(withIdentifier: "unwindIdentifier", sender: self)
         })
-        let no = UIAlertAction(title: "No", style:.Default, handler: {(alert:
+        let no = UIAlertAction(title: "No", style:.default, handler: {(alert:
             UIAlertAction!) in
             //do nothing!
             
@@ -114,23 +114,23 @@ class PopoverContentViewController: UIViewController {
         myAlert.addAction(no)
         myAlert.addAction(yes)
         
-        presentViewController(myAlert, animated: true, completion: nil)
+        present(myAlert, animated: true, completion: nil)
       
     }
     
     
-    @IBAction func takeMeHereButton(sender: AnyObject) {
+    @IBAction func takeMeHereButton(_ sender: AnyObject) {
         self.delegate?.takeMeHere(MapItem!)
-        self.performSegueWithIdentifier("unwindIdentifier", sender: self)
+        self.performSegue(withIdentifier: "unwindIdentifier", sender: self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
         
-        outletTakeMeHere.enabled = false
+        outletTakeMeHere.isEnabled = false
         
-        outletSaveButton.enabled = false
+        outletSaveButton.isEnabled = false
         
         if let omln = originalMarkedLocationName {
             markedLocationName.text = omln
@@ -166,18 +166,18 @@ class PopoverContentViewController: UIViewController {
                     self.MapItem = MKMapItem(placemark:  MKPlacemark(coordinate: placemark.location!.coordinate,
                         addressDictionary: placemark.addressDictionary as! [String:AnyObject]?))
                     
-                    self.outletTakeMeHere.enabled = true
+                    self.outletTakeMeHere.isEnabled = true
                 }
-        })
+        } as! CLGeocodeCompletionHandler)
         
         
       
         
     }
     
-    func formatAddressFromPlacemark(placemark: CLPlacemark) -> String {
+    func formatAddressFromPlacemark(_ placemark: CLPlacemark) -> String {
         return (placemark.addressDictionary!["FormattedAddressLines"] as!
-            [String]).joinWithSeparator(", ")
+            [String]).joined(separator: ", ")
     }
     
   

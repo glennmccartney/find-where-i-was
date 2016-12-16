@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2F95BD62E5B813841466F17A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C8E770D3BFCB1C6BFA3CFBD /* libPods.a */; };
 		313C84601C184396000C27F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313C845F1C184396000C27F5 /* AppDelegate.swift */; };
 		313C84621C184396000C27F5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313C84611C184396000C27F5 /* ViewController.swift */; };
 		313C84651C184396000C27F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 313C84631C184396000C27F5 /* Main.storyboard */; };
@@ -19,6 +18,7 @@
 		313C84761C1844FC000C27F5 /* DefaultSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 313C84751C1844FC000C27F5 /* DefaultSettings.plist */; };
 		3188AD7C1C9C72C80066A0C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3188AD7B1C9C72C80066A0C1 /* GoogleService-Info.plist */; };
 		31FD38F01C18BB5700EE1750 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31FF38E81C1833440068A68B /* MapKit.framework */; };
+		D33AC8F761B2D68ED67C4E6F /* libPods-Find Where I Was.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B59F5A44D1EA1E6DAA204D2 /* libPods-Find Where I Was.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,9 +36,9 @@
 		3188AD7B1C9C72C80066A0C1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3188AD7D1C9C730A0066A0C1 /* FWIW_Bridging_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FWIW_Bridging_Header.h; sourceTree = "<group>"; };
 		31FF38E81C1833440068A68B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		41E869F3306D0DC360B8DA2D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		7C8E770D3BFCB1C6BFA3CFBD /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		AD1D01C44342CAF99D75E247 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		3B59F5A44D1EA1E6DAA204D2 /* libPods-Find Where I Was.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Find Where I Was.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		876B580DF8FA52617DCAE15D /* Pods-Find Where I Was.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Find Where I Was.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Find Where I Was/Pods-Find Where I Was.debug.xcconfig"; sourceTree = "<group>"; };
+		A84C2A2BB6481B2554A5DE60 /* Pods-Find Where I Was.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Find Where I Was.release.xcconfig"; path = "Pods/Target Support Files/Pods-Find Where I Was/Pods-Find Where I Was.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,13 +47,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				31FD38F01C18BB5700EE1750 /* MapKit.framework in Frameworks */,
-				2F95BD62E5B813841466F17A /* libPods.a in Frameworks */,
+				D33AC8F761B2D68ED67C4E6F /* libPods-Find Where I Was.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		059CEFCDAA7A391C85CFDE6A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3B59F5A44D1EA1E6DAA204D2 /* libPods-Find Where I Was.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		313C845E1C184396000C27F5 /* Find Where I Was */ = {
 			isa = PBXGroup;
 			children = (
@@ -79,8 +87,8 @@
 				31FF38E81C1833440068A68B /* MapKit.framework */,
 				313C845E1C184396000C27F5 /* Find Where I Was */,
 				31E645CF1BFB57ED0050922A /* Products */,
-				879F9556D31E9F456E8CDFCB /* Pods */,
-				3773595999385BE0FCE35CAA /* Frameworks */,
+				BDFDA01659F9008D177D8A57 /* Pods */,
+				059CEFCDAA7A391C85CFDE6A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,19 +100,11 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3773595999385BE0FCE35CAA /* Frameworks */ = {
+		BDFDA01659F9008D177D8A57 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7C8E770D3BFCB1C6BFA3CFBD /* libPods.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		879F9556D31E9F456E8CDFCB /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				41E869F3306D0DC360B8DA2D /* Pods.debug.xcconfig */,
-				AD1D01C44342CAF99D75E247 /* Pods.release.xcconfig */,
+				876B580DF8FA52617DCAE15D /* Pods-Find Where I Was.debug.xcconfig */,
+				A84C2A2BB6481B2554A5DE60 /* Pods-Find Where I Was.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -116,12 +116,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 313C846C1C184396000C27F5 /* Build configuration list for PBXNativeTarget "Find Where I Was" */;
 			buildPhases = (
-				9970036791231B194358FFFB /* Check Pods Manifest.lock */,
+				3AD69B9159D7A707AA65E60D /* [CP] Check Pods Manifest.lock */,
 				313C84591C184395000C27F5 /* Sources */,
 				313C845A1C184395000C27F5 /* Frameworks */,
 				313C845B1C184395000C27F5 /* Resources */,
-				D683ABE67F07EB7A3C6C5971 /* Embed Pods Frameworks */,
-				A289341EE306F42B62AF128E /* Copy Pods Resources */,
+				34C3DB2370000D190D147E64 /* [CP] Embed Pods Frameworks */,
+				A70E1BC5EDB29E0BEAC69F76 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -139,12 +139,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Glenn McCartney";
 				TargetAttributes = {
 					313C845C1C184395000C27F5 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = 56Q36M558X;
+						LastSwiftMigration = 0820;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -187,49 +188,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		9970036791231B194358FFFB /* Check Pods Manifest.lock */ = {
+		34C3DB2370000D190D147E64 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Find Where I Was/Pods-Find Where I Was-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A289341EE306F42B62AF128E /* Copy Pods Resources */ = {
+		3AD69B9159D7A707AA65E60D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		D683ABE67F07EB7A3C6C5971 /* Embed Pods Frameworks */ = {
+		A70E1BC5EDB29E0BEAC69F76 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Find Where I Was/Pods-Find Where I Was-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -271,7 +272,7 @@
 /* Begin XCBuildConfiguration section */
 		313C846D1C184396000C27F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41E869F3306D0DC360B8DA2D /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 876B580DF8FA52617DCAE15D /* Pods-Find Where I Was.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -282,12 +283,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.glennmccartney.findwhereiwas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Find Where I Was/FWIW_Bridging_Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		313C846E1C184396000C27F5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AD1D01C44342CAF99D75E247 /* Pods.release.xcconfig */;
+			baseConfigurationReference = A84C2A2BB6481B2554A5DE60 /* Pods-Find Where I Was.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -298,6 +300,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.glennmccartney.findwhereiwas;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Find Where I Was/FWIW_Bridging_Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -314,8 +317,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -360,8 +365,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -381,6 +388,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};

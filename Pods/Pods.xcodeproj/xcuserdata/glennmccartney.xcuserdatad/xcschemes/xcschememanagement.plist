@@ -4,7 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods.xcscheme</key>
+		<key>GoogleToolboxForMac.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-Find Where I Was.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -12,7 +17,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1469924FC52F60B0068FA24EEFCB3EFC</key>
+		<key>E1BBB76ADBF2EF4EF2CE5DF6BBC77296</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EC90F3DE2A17BC15B964D5DA4BF6F567</key>
 		<dict>
 			<key>primary</key>
 			<true/>
