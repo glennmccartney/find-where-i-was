@@ -330,8 +330,10 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if settingDefaultMarkerdPointName==1
         {
             //Reverse Geocode
-            CLGeocoder().reverseGeocodeLocation(CLLocation(latitude : myMapView.centerCoordinate.latitude, longitude: myMapView.centerCoordinate.longitude),
-                completionHandler: {(placemarks:[CLPlacemark]?, error:NSError?) -> Void in
+            
+            CLGeocoder().reverseGeocodeLocation(CLLocation(latitude : myMapView.centerCoordinate.latitude, longitude: myMapView.centerCoordinate.longitude)) { (placemarks, error)  in
+                
+
                     if let placemarks = placemarks {
                         let placemark = placemarks[0]
                         var proposedName : String =  self.formatAddressFromPlacemark(placemark)
@@ -360,7 +362,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                         MarkedPointArr.append(tempMarkedPoint!)
                         
                     }
-            } as! CLGeocodeCompletionHandler)
+            }
             
             
         }
@@ -372,7 +374,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print (error.description)
+        print (error.localizedDescription)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
@@ -403,8 +405,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
             
             //Reverse Geocode
-            CLGeocoder().reverseGeocodeLocation(locations.last!,
-                completionHandler: {(placemarks:[CLPlacemark]?, error:NSError?) -> Void in
+            CLGeocoder().reverseGeocodeLocation(locations.last!) { (placemarks, error)  in
                     if let placemarks = placemarks {
                         let placemark = placemarks[0]
                         self.addressLabel.text = self.formatAddressFromPlacemark(placemark)
@@ -412,7 +413,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                         self.sourceMapItem = MKMapItem(placemark:  MKPlacemark(coordinate: placemark.location!.coordinate,
                             addressDictionary: placemark.addressDictionary as! [String:AnyObject]?))
                     }
-            } as! CLGeocodeCompletionHandler)
+            }
             
             
             statusLabel.text = "Found Your Location"
@@ -481,7 +482,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             let newString = MarkedPoint.name.replacingOccurrences(of: ",", with: "*|*")
             //Note i re-issues IDs when saving
             strTmp = String(i) + ","  + String(MarkedPoint.lat) + "," + String(MarkedPoint.lng) + "," + newString
-            print(strTmp)
+            print(strTmp!)
             myArray.add(strTmp!)
             i = i + 1
         }
@@ -548,9 +549,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
             for a in markedPointAnnotations
             {
-                print (a.title)
-                print (view.annotation?.title)
-                
+             
                 if a.title == (view.annotation?.title)!
                 {
                     currentSelectedMarkedPointElementId = i
@@ -612,7 +611,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     
-    func interstitialDidDismissScreen(_ ad: GADInterstitial!) {
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
         //print ("interstitialDidDismissScreen")
         self.performSegue(withIdentifier: "ShowPopoverFromPin", sender: self)
         self.interstitial = createAndLoadInterstitial()
@@ -694,7 +693,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
 extension ViewController: MarkedLocationDelegate {
     func updateData(_ data: String) {
         
-        print(currentSelectedMarkedPointElementId)
+        print(currentSelectedMarkedPointElementId!)
         
         markedPointAnnotations.remove(at: currentSelectedMarkedPointElementId!)
         MarkedPointArr.remove(at: currentSelectedMarkedPointElementId!)
@@ -790,8 +789,9 @@ extension ViewController: MarkedLocationDelegate {
         request.transportType = .any
         // 4
         let directions = MKDirections(request: request)
+       
         directions.calculate (completionHandler: {
-            (response: MKDirectionsResponse?, error: NSError?) in
+            (response: MKDirectionsResponse?, error: Error?) in
             if let routeResponse = response?.routes {
                 
                 let quickestRouteForSegment: MKRoute = routeResponse.sorted(by: {$0.expectedTravelTime < $1.expectedTravelTime})[0]
@@ -799,13 +799,10 @@ extension ViewController: MarkedLocationDelegate {
                 time += quickestRouteForSegment.expectedTravelTime
                 
                 self.showRoute(routeResponse, time: time)
-                
-                
-                
-            } else if let _ = error {
+
                 
             }
-        } as! MKDirectionsHandler)
+        } )
     }
     
     

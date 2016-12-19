@@ -73,42 +73,41 @@ class SettingsViewController: UITableViewController {
     
     @IBAction func PanOnOpen(_ sender: AnyObject) {
         let mySwitch = sender as! UISwitch
-        if let tempBool : Bool = mySwitch.isOn
-        {
+         let tempBool : Bool = mySwitch.isOn
             delegate?.updateSettingPanToCurrentLocationOnOpen(tempBool)
-        }
+        
     }
     
     @IBAction func MarkerDetailsAfterSearch(_ sender: AnyObject) {
         let mySwitch = sender as! UISwitch
-        if let tempBool : Bool = mySwitch.isOn
-        {
-            delegate?.updateSettingOpenMarkerDetailsAfterSearch(tempBool)
-        }
+         let tempBool : Bool = mySwitch.isOn
+        
+        delegate?.updateSettingOpenMarkerDetailsAfterSearch(tempBool)
+        
     }
     
     @IBAction func ShowCompass(_ sender: AnyObject) {
         let mySwitch = sender as! UISwitch
-        if let tempBool : Bool = mySwitch.isOn
-        {
+        let tempBool : Bool = mySwitch.isOn
+        
             delegate?.updateSettingShowCompass(tempBool)
-        }
+        
     }
     
     @IBAction func ShowTraffic(_ sender: AnyObject) {
         let mySwitch = sender as! UISwitch
-        if let tempBool : Bool = mySwitch.isOn
-        {
+         let tempBool : Bool = mySwitch.isOn
+        
             delegate?.updateSettingShowTraffic(tempBool)
-        }
+        
     }
     
     @IBAction func ShowScale(_ sender: AnyObject) {
         let mySwitch = sender as! UISwitch
-        if let tempBool : Bool = mySwitch.isOn
-        {
+         let tempBool : Bool = mySwitch.isOn
+        
             delegate?.updateSettingShowScale(tempBool)
-        }
+        
     }
     
     @IBAction func MapTypeChanged(_ sender: AnyObject) {
@@ -132,7 +131,7 @@ class SettingsViewController: UITableViewController {
             do{
                 try
                 
-                    fileManager.removeItem(atPath: pathToFile(kFileName)!.path!)
+                    fileManager.removeItem(atPath: pathToFile(kFileName)!.path)
                     //print("Remove 1 successful")
    
             }
@@ -145,7 +144,7 @@ class SettingsViewController: UITableViewController {
             do{
                 try
                     
-                    fileManager.removeItem(atPath: pathToFile(kSettingsFileName)!.path!)
+                    fileManager.removeItem(atPath: pathToFile(kSettingsFileName)!.path)
                 //print("Remove 2 successful")
                 
             }

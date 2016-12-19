@@ -145,8 +145,8 @@ class PopoverContentViewController: UIViewController {
         
         //Reverse Geocode
         
-        print (markedLocationLat)
-        print (markedLocationLng)
+        //print (markedLocationLat!)
+        //print (markedLocationLng!)
         
         let myDoubleLat = Double(markedLocationLat!)
         let myDoubleLng = Double(markedLocationLng!)
@@ -154,8 +154,7 @@ class PopoverContentViewController: UIViewController {
         
         let location = CLLocation(latitude : myDoubleLat!, longitude: myDoubleLng!)
         
-        CLGeocoder().reverseGeocodeLocation(location,
-            completionHandler: {(placemarks:[CLPlacemark]?, error:NSError?) -> Void in
+        CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error)  in
                 if let placemarks = placemarks {
                     let placemark = placemarks[0]
                     self.addressLabel.text = self.formatAddressFromPlacemark(placemark)
@@ -168,7 +167,7 @@ class PopoverContentViewController: UIViewController {
                     
                     self.outletTakeMeHere.isEnabled = true
                 }
-        } as! CLGeocodeCompletionHandler)
+        }
         
         
       
