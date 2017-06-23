@@ -131,7 +131,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     {
         let currentCell = tableView.cellForRow(at: indexPath)! as UITableViewCell
         
-        print ("You clicked on \(currentCell.textLabel?.text)")
+        print ("You clicked on \(String(describing: currentCell.textLabel?.text))")
         
         selectedMark = currentCell.textLabel?.text
         

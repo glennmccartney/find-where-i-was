@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Where Was I
+//  Find Where I Was
 //
 //  Created by Glenn McCartney on 17/11/2015.
 //  Copyright © 2015 Glenn McCartney. All rights reserved.
