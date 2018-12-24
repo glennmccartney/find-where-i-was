@@ -156,9 +156,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidEnterBackground(_:)), name:NSNotification.Name.UIApplicationDidEnterBackground, object:UIApplication.shared)
+        NotificationCenter.default.addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidEnterBackground(_:)), name:UIApplication.didEnterBackgroundNotification, object:UIApplication.shared)
         //applicationDidBecomeActive
-        NotificationCenter.default.addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidBecomeActive(_:)), name:NSNotification.Name.UIApplicationDidBecomeActive, object:UIApplication.shared)
+        NotificationCenter.default.addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidBecomeActive(_:)), name:UIApplication.didBecomeActiveNotification, object:UIApplication.shared)
         
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -197,7 +197,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     {
         if ((boolShowNoLocationAlert) != nil)
         {
-            let myAlert = UIAlertController(title: "My Alert", message: "Your Current Loction is Unknown", preferredStyle:UIAlertControllerStyle.alert)
+            let myAlert = UIAlertController(title: "My Alert", message: "Your Current Loction is Unknown", preferredStyle:UIAlertController.Style.alert)
             let ok = UIAlertAction(title: "OK", style:.default, handler: {(alert:
                 UIAlertAction!) in
                 print("OK button was pressed")
@@ -245,7 +245,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                         {
                             currentLocation = CLLocationCoordinate2D(latitude : MarkedPoint.lat, longitude: MarkedPoint.lng)
                             
-                            let myRegion = MKCoordinateRegionMakeWithDistance(currentLocation!, (locationManager.location?.horizontalAccuracy)!, (locationManager.location?.horizontalAccuracy)!)
+                            let myRegion = MKCoordinateRegion.init(center: currentLocation!, latitudinalMeters: (locationManager.location?.horizontalAccuracy)!, longitudinalMeters: (locationManager.location?.horizontalAccuracy)!)
                             
                             myMapView.setRegion(myRegion, animated: true)
                             
@@ -385,14 +385,14 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         {
             if boolAutoPan
             {
-                let myRegion = MKCoordinateRegionMakeWithDistance(currentLocation!, ha , ha)
+                let myRegion = MKCoordinateRegion.init(center: currentLocation!, latitudinalMeters: ha , longitudinalMeters: ha)
                 myMapView.setRegion(myRegion, animated: true)
             }
             else
             {
                 if boolAutoPanOnResume
                 {
-                    let myRegion = MKCoordinateRegionMakeWithDistance(currentLocation!, ha , ha)
+                    let myRegion = MKCoordinateRegion.init(center: currentLocation!, latitudinalMeters: ha , longitudinalMeters: ha)
                     myMapView.setRegion(myRegion, animated: true)
                     boolAutoPanOnResume = false
                 }
@@ -600,14 +600,14 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         // If the polyline has been drawn previously, remove it
         if displayedPolyline != nil
         {
-            myMapView.remove(displayedPolyline!)
+            myMapView.removeOverlay(displayedPolyline!)
         }
         
         displayedPolyline = route.polyline
         
-        myMapView.add(displayedPolyline!)
+        myMapView.addOverlay(displayedPolyline!)
         
-        myMapView.setVisibleMapRect(route.polyline.boundingMapRect,  edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0), animated: true)
+        myMapView.setVisibleMapRect(route.polyline.boundingMapRect,  edgePadding: UIEdgeInsets.init(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0), animated: true)
     }
     
     
@@ -666,7 +666,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         return (placemark.addressDictionary!["FormattedAddressLines"] as! [String]).joined(separator: ", ")
     }
     
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationView.DragState, fromOldState oldState: MKAnnotationView.DragState) {
         if newState == .starting
         {
             var i: Int = 0
@@ -780,7 +780,7 @@ extension ViewController: MarkedLocationDelegate {
         var time: TimeInterval = 0
         
         // 1
-        let request: MKDirectionsRequest = MKDirectionsRequest()
+        let request: MKDirections.Request = MKDirections.Request()
         request.source = sourceMapItem
         request.destination = destMapItem
         // 2
@@ -791,7 +791,7 @@ extension ViewController: MarkedLocationDelegate {
         let directions = MKDirections(request: request)
        
         directions.calculate (completionHandler: {
-            (response: MKDirectionsResponse?, error: Error?) in
+            (response: MKDirections.Response?, error: Error?) in
             if let routeResponse = response?.routes {
                 
                 let quickestRouteForSegment: MKRoute = routeResponse.sorted(by: {$0.expectedTravelTime < $1.expectedTravelTime})[0]
@@ -962,7 +962,7 @@ extension ViewController: SettingsDelegate {
             // If the polyline has been drawn previously, remove it
             if displayedPolyline != nil
             {
-                myMapView.remove(displayedPolyline!)
+                myMapView.removeOverlay(displayedPolyline!)
             }
             
         }
@@ -1083,7 +1083,7 @@ extension ViewController: SettingsDelegate {
         tracker?.set(kGAIScreenName, value: "Map")
         
         let eventTracker: NSObject = GAIDictionaryBuilder.createScreenView().build()
-        tracker?.send(eventTracker as! [AnyHashable: Any])
+        tracker?.send(eventTracker as? [AnyHashable: Any])
         //For Google Analytics
         
         super.viewWillAppear(animated)

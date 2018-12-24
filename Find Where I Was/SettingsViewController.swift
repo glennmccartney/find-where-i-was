@@ -118,7 +118,7 @@ class SettingsViewController: UITableViewController {
     
     @IBAction func deleteAllUserData(_ sender: AnyObject) {
         
-        let myAlert = UIAlertController(title: "Are You Sure?", message: "Are you sure you wish to delete all user data? This cannot be undone", preferredStyle:UIAlertControllerStyle.alert)
+        let myAlert = UIAlertController(title: "Are You Sure?", message: "Are you sure you wish to delete all user data? This cannot be undone", preferredStyle:UIAlertController.Style.alert)
         let yes = UIAlertAction(title: "Yes", style:.default, handler: {(alert:
             UIAlertAction!) in
             //print("Yes button was pressed")
@@ -188,7 +188,7 @@ class SettingsViewController: UITableViewController {
         tracker?.set(kGAIScreenName, value: "Settings")
         
         let eventTracker: NSObject = GAIDictionaryBuilder.createScreenView().build()
-        tracker?.send(eventTracker as! [AnyHashable: Any])
+        tracker?.send(eventTracker as? [AnyHashable: Any])
         //For Google Analytics
         
         super.viewWillAppear(animated)

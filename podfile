@@ -1,4 +1,4 @@
 target "Find Where I Was" do
 	pod 'Google-Mobile-Ads-SDK'
-	pod 'Google/Analytics'
+    pod 'Firebase/Core'
 end

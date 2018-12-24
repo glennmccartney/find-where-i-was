@@ -98,7 +98,7 @@ class PopoverContentViewController: UIViewController {
         //To-Do : Add an "Are You sure?" message
         
         
-        let myAlert = UIAlertController(title: "Are you sure?", message: "Are you sure you wish to delete this marker?", preferredStyle:UIAlertControllerStyle.alert)
+        let myAlert = UIAlertController(title: "Are you sure?", message: "Are you sure you wish to delete this marker?", preferredStyle:UIAlertController.Style.alert)
         let yes = UIAlertAction(title: "Yes", style:.default, handler: {(alert:
             UIAlertAction!) in
             

@@ -38,7 +38,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         tracker?.set(kGAIScreenName, value: "Search")
         
         let eventTracker: NSObject = GAIDictionaryBuilder.createScreenView().build()
-        tracker?.send(eventTracker as! [AnyHashable: Any])
+        tracker?.send((eventTracker as! [AnyHashable: Any]))
         //For Google Analytics
         
         super.viewWillAppear(animated)
@@ -94,7 +94,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell?
         
         //  06/05/2016 - Font changed
-        cell!.textLabel!.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
+        cell!.textLabel!.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.medium)
         //UIFont(name:"Avenir", size:14)
         
         
@@ -148,7 +148,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     
     // Override to support editing the table view.
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
             /*
