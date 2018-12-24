@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        /*
         // Google Analytics.....
         // Configure tracker from GoogleService-Info.plist.
         var configureError:NSError?
@@ -28,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         gai?.trackUncaughtExceptions = true  // report uncaught exceptions
         gai?.logger.logLevel = GAILogLevel.none  // remove before app release
         // Google Analytics.....
-        
+        */
         
         
         
