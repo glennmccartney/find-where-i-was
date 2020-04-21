@@ -412,18 +412,23 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                         let placemark = placemarks[0]
                         self.addressLabel.text = self.formatAddressFromPlacemark(placemark)
                         
-                        self.sourceMapItem = MKMapItem(placemark:  MKPlacemark(coordinate: placemark.location!.coordinate,
-                            addressDictionary: placemark.addressDictionary as! [String:AnyObject]?))
+                        //let myAddressDictionary = placemark.addressDictionary
+                        
+                        self.sourceMapItem = MKMapItem(placemark:  MKPlacemark(coordinate: placemark.location!.coordinate))
+                        
+                        //self.sourceMapItem = MKMapItem(placemark:  MKPlacemark(coordinate: placemark.location!.coordinate,
+                        //addressDictionary: myAddressDictionary as! [String:AnyObject]?))
+                        
                     }
             }
             
             
             statusLabel.text = "Found Your Location"
+
             
-            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
-            AnalyticsParameterItemID: "id-001",
-            AnalyticsParameterItemName: "Found Your Location",
-            AnalyticsParameterContentType: "cont"
+            Analytics.logEvent("share_image", parameters: [
+            "name": "Found Location" as NSObject,
+            "full_text": "Found Your Location" as NSObject
             ])
         }
 
@@ -472,7 +477,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     
-    func applicationDidEnterBackground(_ notification: Notification)
+    @objc func applicationDidEnterBackground(_ notification: Notification)
     {
         saveData()
     }
