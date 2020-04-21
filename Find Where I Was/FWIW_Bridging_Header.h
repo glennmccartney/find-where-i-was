@@ -9,6 +9,4 @@
 #ifndef FWIW_Bridging_Header_h
 #define FWIW_Bridging_Header_h
 
-#import <Google/Analytics.h>
-
 #endif /* FWIW_Bridging_Header_h */

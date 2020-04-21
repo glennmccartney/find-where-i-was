@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import GoogleMobileAds
+import Firebase
 
 //User Settings
 var settingDefaultMarkerdPointName : Int = 1
@@ -159,6 +160,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         NotificationCenter.default.addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidEnterBackground(_:)), name:UIApplication.didEnterBackgroundNotification, object:UIApplication.shared)
         //applicationDidBecomeActive
         NotificationCenter.default.addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidBecomeActive(_:)), name:UIApplication.didBecomeActiveNotification, object:UIApplication.shared)
+        
         
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -417,6 +419,12 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
             
             statusLabel.text = "Found Your Location"
+            
+            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+            AnalyticsParameterItemID: "id-001",
+            AnalyticsParameterItemName: "Found Your Location",
+            AnalyticsParameterContentType: "cont"
+            ])
         }
 
     }
@@ -434,7 +442,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         // Requests test ads on test devices.
         let devices: [String] = ["7fc59f853d9dbd8193c2fb6dd425c689", "e17c6fd140eeebaa9972b80f81385489", kGADSimulatorID as! String]
-        request.testDevices = devices
+        //request.testDevices = devices
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = devices
         
         interstitial.load(request)
         interstitial.delegate = self
@@ -452,7 +461,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     
-    func applicationDidBecomeActive(_ notification: Notification)
+    @objc func applicationDidBecomeActive(_ notification: Notification)
     {
         //get the map to do one pan to current location on resume
         if settingPanToCurrentLoctionOnOpen
@@ -1078,15 +1087,7 @@ extension ViewController: SettingsDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        //For Google Analytics
-        let tracker = GAI.sharedInstance().defaultTracker
-        tracker?.set(kGAIScreenName, value: "Map")
-        
-        let eventTracker: NSObject = GAIDictionaryBuilder.createScreenView().build()
-        tracker?.send(eventTracker as? [AnyHashable: Any])
-        //For Google Analytics
-        
-        super.viewWillAppear(animated)
+
         
     }
 }

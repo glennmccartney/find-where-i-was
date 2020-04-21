@@ -2,25 +2,41 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>TRACKING_ID</key>
 	<string>UA-276644-45</string>
+	<key>CLIENT_ID</key>
+	<string>706830455344-lj3h9prduhur8rhj9k22tdigabcrc4d1.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.706830455344-lj3h9prduhur8rhj9k22tdigabcrc4d1</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAKXf0W9lARX2lJtimUYRieE6v7xbVgWMo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>706830455344</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.glennmccartney.findwhereiwas</string>
-	<key>IS_ADS_ENABLED</key>
-	<false/>
-	<key>IS_ANALYTICS_ENABLED</key>
-	<true/>
-	<key>IS_APPINVITE_ENABLED</key>
-	<false/>
-	<key>IS_GCM_ENABLED</key>
-	<false/>
-	<key>IS_SIGNIN_ENABLED</key>
-	<false/>
-	<key>GOOGLE_APP_ID</key>
-	<string>1:706830455344:ios:7c5071c679736983</string>
 	<key>PROJECT_ID</key>
 	<string>find-where-i-was</string>
+	<key>STORAGE_BUCKET</key>
+	<string>find-where-i-was.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<true></true>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:706830455344:ios:7c5071c679736983</string>
+	<key>DATABASE_URL</key>
+	<string>https://find-where-i-was.firebaseio.com</string>
 </dict>
 </plist>

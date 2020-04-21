@@ -33,15 +33,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewWillAppear(_ animated: Bool) {
         
-        //For Google Analytics
-        let tracker = GAI.sharedInstance().defaultTracker
-        tracker?.set(kGAIScreenName, value: "Search")
-        
-        let eventTracker: NSObject = GAIDictionaryBuilder.createScreenView().build()
-        tracker?.send((eventTracker as! [AnyHashable: Any]))
-        //For Google Analytics
-        
-        super.viewWillAppear(animated)
+
     }
     
     override func viewDidLoad() {
