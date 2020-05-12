@@ -20,7 +20,7 @@ class PopoverContentViewController: UIViewController {
    
     
     var delegate: MarkedLocationDelegate?
-    var originalMarkedLocationName : String?
+    var originalMarkedLocationName : String? = nil
     var markedLocationLat : String?
     var markedLocationLng : String?
     var MapItem : MKMapItem?
@@ -163,7 +163,7 @@ class PopoverContentViewController: UIViewController {
                     
                     //for the take me here function
                     self.MapItem = MKMapItem(placemark:  MKPlacemark(coordinate: placemark.location!.coordinate,
-                        addressDictionary: placemark.addressDictionary as! [String:AnyObject]?))
+                        addressDictionary: nil))
                     
                     self.outletTakeMeHere.isEnabled = true
                 }
@@ -175,8 +175,10 @@ class PopoverContentViewController: UIViewController {
     }
     
     func formatAddressFromPlacemark(_ placemark: CLPlacemark) -> String {
-        return (placemark.addressDictionary!["FormattedAddressLines"] as!
-            [String]).joined(separator: ", ")
+        
+        let address = "\(placemark.subThoroughfare ?? ""), \(placemark.thoroughfare ?? ""), \(placemark.locality ?? ""), \(placemark.subLocality ?? ""), \(placemark.administrativeArea ?? ""), \(placemark.postalCode ?? ""), \(placemark.country ?? "")"
+        
+        return (address)
     }
     
   

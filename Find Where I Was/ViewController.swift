@@ -641,13 +641,21 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         if segue.identifier == "ShowPopoverFromPin"
         {
             
-            let myPopoverController = segue.destination
+            let myPopoverController = segue.destination as! PopoverContentViewController
             
-            myPopoverController.setValue(currentSelectedMarkedPointAnnotation.title!, forKey : "originalMarkedLocationName")
+            //  12/05/2020 : Comment out 3 below, add 3 below those
+            //  Reason : setValue was causing an error this class is not key value coding-compliant for the key...
             
-            myPopoverController.setValue(currentSelectedMarkedPointAnnotation.coordinate.latitude.description, forKey : "markedLocationLat")
+            //myPopoverController.setValue(currentSelectedMarkedPointAnnotation.title!, forKey : "originalMarkedLocationName")
+            //myPopoverController.setValue(currentSelectedMarkedPointAnnotation.coordinate.latitude.description, forKey : "markedLocationLat")
+            //myPopoverController.setValue(currentSelectedMarkedPointAnnotation.coordinate.longitude.description, forKey : "markedLocationLng")
             
-            myPopoverController.setValue(currentSelectedMarkedPointAnnotation.coordinate.longitude.description, forKey : "markedLocationLng")
+            
+               myPopoverController.originalMarkedLocationName = currentSelectedMarkedPointAnnotation.title!
+               myPopoverController.markedLocationLat = currentSelectedMarkedPointAnnotation.coordinate.latitude.description
+               myPopoverController.markedLocationLng = currentSelectedMarkedPointAnnotation.coordinate.longitude.description
+               
+               
             
             (segue.destination as! PopoverContentViewController).delegate = self
         }
@@ -677,7 +685,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     }
     
     func formatAddressFromPlacemark(_ placemark: CLPlacemark) -> String {
-        return (placemark.addressDictionary!["FormattedAddressLines"] as! [String]).joined(separator: ", ")
+        let address = "\(placemark.subThoroughfare ?? ""), \(placemark.thoroughfare ?? ""), \(placemark.locality ?? ""), \(placemark.subLocality ?? ""), \(placemark.administrativeArea ?? ""), \(placemark.postalCode ?? ""), \(placemark.country ?? "")"
+       return (address)
+        
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationView.DragState, fromOldState oldState: MKAnnotationView.DragState) {

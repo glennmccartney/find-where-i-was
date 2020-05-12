@@ -44,7 +44,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         self.resultSearchController = UISearchController(searchResultsController: nil)
         self.resultSearchController.searchResultsUpdater = self
         
-        self.resultSearchController.dimsBackgroundDuringPresentation    = false
+        //self.resultSearchController.dimsBackgroundDuringPresentation    = false
         self.resultSearchController.searchBar.sizeToFit()
         self.resultSearchController.searchBar.placeholder = "Search Marked Locations"
         
@@ -164,7 +164,10 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
 
 
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?
+    {
+        
+        
         let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:IndexPath) -> Void in
             //TODO: edit the row at indexPath here
             print ("Edit")
@@ -175,10 +178,8 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             self.selectedMark = currentCell.textLabel?.text
             
             self.performSegue(withIdentifier: "unwindSearchIdentifier", sender: self)
-            
-            
-            
         }
+        
         editAction.backgroundColor = UIColor.blue
         
         
@@ -191,8 +192,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             self.delegate?.deleteMarker((currentCell.textLabel?.text)!)
             
             tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            
         }
         deleteAction.backgroundColor = UIColor.red
         
