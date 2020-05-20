@@ -16,6 +16,7 @@
 		313C84731C1844F7000C27F5 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313C84701C1844F7000C27F5 /* SearchViewController.swift */; };
 		313C84741C1844F7000C27F5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313C84711C1844F7000C27F5 /* SettingsViewController.swift */; };
 		313C84761C1844FC000C27F5 /* DefaultSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 313C84751C1844FC000C27F5 /* DefaultSettings.plist */; };
+		315225542475D17400C29E8F /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 315225532475D17400C29E8F /* Podfile */; };
 		3188AD7C1C9C72C80066A0C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3188AD7B1C9C72C80066A0C1 /* GoogleService-Info.plist */; };
 		31FD38F01C18BB5700EE1750 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31FF38E81C1833440068A68B /* MapKit.framework */; };
 		D33AC8F761B2D68ED67C4E6F /* libPods-Find Where I Was.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B59F5A44D1EA1E6DAA204D2 /* libPods-Find Where I Was.a */; };
@@ -33,6 +34,7 @@
 		313C84701C1844F7000C27F5 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		313C84711C1844F7000C27F5 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		313C84751C1844FC000C27F5 /* DefaultSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultSettings.plist; sourceTree = "<group>"; };
+		315225532475D17400C29E8F /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		3188AD7B1C9C72C80066A0C1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3188AD7D1C9C730A0066A0C1 /* FWIW_Bridging_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FWIW_Bridging_Header.h; sourceTree = "<group>"; };
 		31FF38E81C1833440068A68B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -84,6 +86,7 @@
 		31E645C51BFB57ED0050922A = {
 			isa = PBXGroup;
 			children = (
+				315225532475D17400C29E8F /* Podfile */,
 				31FF38E81C1833440068A68B /* MapKit.framework */,
 				313C845E1C184396000C27F5 /* Find Where I Was */,
 				31E645CF1BFB57ED0050922A /* Products */,
@@ -175,6 +178,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				315225542475D17400C29E8F /* Podfile in Resources */,
 				313C846A1C184396000C27F5 /* LaunchScreen.storyboard in Resources */,
 				313C84761C1844FC000C27F5 /* DefaultSettings.plist in Resources */,
 				3188AD7C1C9C72C80066A0C1 /* GoogleService-Info.plist in Resources */,
@@ -247,11 +251,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Find Where I Was/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.9;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -328,11 +333,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Find Where I Was/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.9;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -451,7 +457,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -503,7 +509,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
