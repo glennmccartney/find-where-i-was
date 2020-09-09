@@ -170,7 +170,10 @@ class PopoverContentViewController: UIViewController {
         }
         
         
-      
+        //To suit dark mode...
+         if #available(iOS 13.0, *) {
+             markedLocationName.overrideUserInterfaceStyle = .light
+         }
         
     }
     

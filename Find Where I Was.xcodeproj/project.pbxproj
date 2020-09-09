@@ -19,7 +19,7 @@
 		315225542475D17400C29E8F /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 315225532475D17400C29E8F /* Podfile */; };
 		3188AD7C1C9C72C80066A0C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3188AD7B1C9C72C80066A0C1 /* GoogleService-Info.plist */; };
 		31FD38F01C18BB5700EE1750 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31FF38E81C1833440068A68B /* MapKit.framework */; };
-		D33AC8F761B2D68ED67C4E6F /* libPods-Find Where I Was.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B59F5A44D1EA1E6DAA204D2 /* libPods-Find Where I Was.a */; };
+		A384A23FDB9D423B0B72EC29 /* libPods-Find Where I Was.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66893D756CCB46A338ABFEFF /* libPods-Find Where I Was.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,13 +34,14 @@
 		313C84701C1844F7000C27F5 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		313C84711C1844F7000C27F5 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		313C84751C1844FC000C27F5 /* DefaultSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultSettings.plist; sourceTree = "<group>"; };
-		315225532475D17400C29E8F /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		315225532475D17400C29E8F /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		31620CF42509810C00CB35FC /* libGoogleDataTransport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libGoogleDataTransport.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3188AD7B1C9C72C80066A0C1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3188AD7D1C9C730A0066A0C1 /* FWIW_Bridging_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FWIW_Bridging_Header.h; sourceTree = "<group>"; };
 		31FF38E81C1833440068A68B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		3B59F5A44D1EA1E6DAA204D2 /* libPods-Find Where I Was.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Find Where I Was.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		876B580DF8FA52617DCAE15D /* Pods-Find Where I Was.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Find Where I Was.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Find Where I Was/Pods-Find Where I Was.debug.xcconfig"; sourceTree = "<group>"; };
-		A84C2A2BB6481B2554A5DE60 /* Pods-Find Where I Was.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Find Where I Was.release.xcconfig"; path = "Pods/Target Support Files/Pods-Find Where I Was/Pods-Find Where I Was.release.xcconfig"; sourceTree = "<group>"; };
+		369633B96E9DABBE82E33074 /* Pods-Find Where I Was.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Find Where I Was.release.xcconfig"; path = "Target Support Files/Pods-Find Where I Was/Pods-Find Where I Was.release.xcconfig"; sourceTree = "<group>"; };
+		66893D756CCB46A338ABFEFF /* libPods-Find Where I Was.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Find Where I Was.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7539A84C9359BF7590D8A544 /* Pods-Find Where I Was.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Find Where I Was.debug.xcconfig"; path = "Target Support Files/Pods-Find Where I Was/Pods-Find Where I Was.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,7 +50,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31FD38F01C18BB5700EE1750 /* MapKit.framework in Frameworks */,
-				D33AC8F761B2D68ED67C4E6F /* libPods-Find Where I Was.a in Frameworks */,
+				A384A23FDB9D423B0B72EC29 /* libPods-Find Where I Was.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +60,8 @@
 		059CEFCDAA7A391C85CFDE6A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3B59F5A44D1EA1E6DAA204D2 /* libPods-Find Where I Was.a */,
+				31620CF42509810C00CB35FC /* libGoogleDataTransport.a */,
+				66893D756CCB46A338ABFEFF /* libPods-Find Where I Was.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -90,8 +92,8 @@
 				31FF38E81C1833440068A68B /* MapKit.framework */,
 				313C845E1C184396000C27F5 /* Find Where I Was */,
 				31E645CF1BFB57ED0050922A /* Products */,
-				BDFDA01659F9008D177D8A57 /* Pods */,
 				059CEFCDAA7A391C85CFDE6A /* Frameworks */,
+				E17898F44A39A5AE8DADDD36 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,13 +105,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BDFDA01659F9008D177D8A57 /* Pods */ = {
+		E17898F44A39A5AE8DADDD36 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				876B580DF8FA52617DCAE15D /* Pods-Find Where I Was.debug.xcconfig */,
-				A84C2A2BB6481B2554A5DE60 /* Pods-Find Where I Was.release.xcconfig */,
+				7539A84C9359BF7590D8A544 /* Pods-Find Where I Was.debug.xcconfig */,
+				369633B96E9DABBE82E33074 /* Pods-Find Where I Was.release.xcconfig */,
 			);
 			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,7 +122,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 313C846C1C184396000C27F5 /* Build configuration list for PBXNativeTarget "Find Where I Was" */;
 			buildPhases = (
-				3AD69B9159D7A707AA65E60D /* [CP] Check Pods Manifest.lock */,
+				6C1F46A654B989F99878E729 /* [CP] Check Pods Manifest.lock */,
 				313C84591C184395000C27F5 /* Sources */,
 				313C845A1C184395000C27F5 /* Frameworks */,
 				313C845B1C184395000C27F5 /* Resources */,
@@ -190,16 +193,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3AD69B9159D7A707AA65E60D /* [CP] Check Pods Manifest.lock */ = {
+		6C1F46A654B989F99878E729 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Find Where I Was-checkManifestLockResult.txt",
 			);
@@ -247,23 +254,22 @@
 /* Begin XCBuildConfiguration section */
 		313C846D1C184396000C27F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 876B580DF8FA52617DCAE15D /* Pods-Find Where I Was.debug.xcconfig */;
+			baseConfigurationReference = 7539A84C9359BF7590D8A544 /* Pods-Find Where I Was.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Find Where I Was/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.9;
+				MARKETING_VERSION = 1.10;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-l\"FirebaseCoreDiagnostics\"",
 					"-l\"FirebaseInstallations\"",
 					"-l\"GoogleDataTransport\"",
-					"-l\"GoogleDataTransportCCTSupport\"",
 					"-l\"GoogleUtilities\"",
 					"-l\"PromisesObjC\"",
 					"-l\"c++\"",
@@ -329,23 +335,22 @@
 		};
 		313C846E1C184396000C27F5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A84C2A2BB6481B2554A5DE60 /* Pods-Find Where I Was.release.xcconfig */;
+			baseConfigurationReference = 369633B96E9DABBE82E33074 /* Pods-Find Where I Was.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Find Where I Was/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.9;
+				MARKETING_VERSION = 1.10;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-l\"FirebaseCoreDiagnostics\"",
 					"-l\"FirebaseInstallations\"",
 					"-l\"GoogleDataTransport\"",
-					"-l\"GoogleDataTransportCCTSupport\"",
 					"-l\"GoogleUtilities\"",
 					"-l\"PromisesObjC\"",
 					"-l\"c++\"",

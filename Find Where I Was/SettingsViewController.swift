@@ -53,6 +53,12 @@ class SettingsViewController: UITableViewController {
         btnDeleteAll.layer.borderWidth = 1
         btnDeleteAll.layer.borderColor = self.view.tintColor.cgColor
         
+        //To suit dark mode...
+        if #available(iOS 13.0, *) {
+            OutletDefaultMarkerName.overrideUserInterfaceStyle = .light
+            OutletMapType.overrideUserInterfaceStyle = .light
+        }
+        
         reloadSettings()
     }
     

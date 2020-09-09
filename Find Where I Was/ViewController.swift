@@ -173,7 +173,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
             
             statusLabel.text = "Searching For Your Location..."
         }
-        
+
         self.interstitial = createAndLoadInterstitial()
     }
 

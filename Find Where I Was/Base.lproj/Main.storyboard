@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -157,7 +157,7 @@
                         <outlet property="autoPan" destination="2sD-Og-5nK" id="AMJ-gE-YIL"/>
                         <outlet property="myMapView" destination="hh7-f4-YF4" id="89q-hg-gUE"/>
                         <outlet property="statusLabel" destination="Okj-RD-jlF" id="zZo-6y-urR"/>
-                        <segue destination="igF-eF-s2S" kind="presentation" identifier="ShowPopoverFromPin" id="rm4-rB-MzY"/>
+                        <segue destination="igF-eF-s2S" kind="presentation" identifier="ShowPopoverFromPin" modalPresentationStyle="fullScreen" id="rm4-rB-MzY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -552,7 +552,7 @@
                         <viewControllerLayoutGuide type="bottom" id="jqz-uc-HyP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="oFb-Xp-96m">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Marked Location Name : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQZ-Y1-gIe">
@@ -581,7 +581,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eog-iz-Bae">
-                                <rect key="frame" x="16" y="552" width="343" height="35"/>
+                                <rect key="frame" x="16" y="572" width="343" height="35"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Take Me Here!"/>
@@ -624,7 +624,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pvM-4z-S2U">
-                                <rect key="frame" x="16" y="597" width="343" height="40"/>
+                                <rect key="frame" x="16" y="617" width="343" height="40"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="wi2-DD-YVN"/>

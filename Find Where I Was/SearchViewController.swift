@@ -50,6 +50,10 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         
         myTableView.tableHeaderView = self.resultSearchController.searchBar
         
+        //To suit dark mode...
+        if #available(iOS 13.0, *) {
+            myTableView.overrideUserInterfaceStyle = .light
+        }
         
         myTableView.reloadData()
     }

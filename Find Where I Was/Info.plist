@@ -56,6 +56,8 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This allows us to display your location on the map after which you can choose to save the location for use later</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>This identifier will be used to deliver personalized ads to you.</string>
 	<key>Privacy - Location Always Usage Description</key>
 	<string>This allows us to display your location on the map after which you can choose to save the location for use later</string>
 	<key>UILaunchStoryboardName</key>
