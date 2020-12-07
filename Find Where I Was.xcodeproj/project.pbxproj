@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3113C337255EDC6D000AFBDB /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3113C336255EDC6D000AFBDB /* AppTrackingTransparency.framework */; };
 		313C84601C184396000C27F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313C845F1C184396000C27F5 /* AppDelegate.swift */; };
 		313C84621C184396000C27F5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313C84611C184396000C27F5 /* ViewController.swift */; };
 		313C84651C184396000C27F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 313C84631C184396000C27F5 /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3113C336255EDC6D000AFBDB /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
 		313C845D1C184395000C27F5 /* Find Where I Was.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Find Where I Was.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		313C845F1C184396000C27F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		313C84611C184396000C27F5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3113C337255EDC6D000AFBDB /* AppTrackingTransparency.framework in Frameworks */,
 				31FD38F01C18BB5700EE1750 /* MapKit.framework in Frameworks */,
 				A384A23FDB9D423B0B72EC29 /* libPods-Find Where I Was.a in Frameworks */,
 			);
@@ -60,6 +63,7 @@
 		059CEFCDAA7A391C85CFDE6A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3113C336255EDC6D000AFBDB /* AppTrackingTransparency.framework */,
 				31620CF42509810C00CB35FC /* libGoogleDataTransport.a */,
 				66893D756CCB46A338ABFEFF /* libPods-Find Where I Was.a */,
 			);
@@ -111,7 +115,6 @@
 				7539A84C9359BF7590D8A544 /* Pods-Find Where I Was.debug.xcconfig */,
 				369633B96E9DABBE82E33074 /* Pods-Find Where I Was.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -123,9 +126,11 @@
 			buildConfigurationList = 313C846C1C184396000C27F5 /* Build configuration list for PBXNativeTarget "Find Where I Was" */;
 			buildPhases = (
 				6C1F46A654B989F99878E729 /* [CP] Check Pods Manifest.lock */,
+				1D1C2C84476E78CD459A7D98 /* [CP] Prepare Artifacts */,
 				313C84591C184395000C27F5 /* Sources */,
 				313C845A1C184395000C27F5 /* Frameworks */,
 				313C845B1C184395000C27F5 /* Resources */,
+				5ED35AD4BEDA9D8C38AFC9F1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -143,7 +148,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = "Glenn McCartney";
 				TargetAttributes = {
 					313C845C1C184395000C27F5 = {
@@ -193,6 +198,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1D1C2C84476E78CD459A7D98 /* [CP] Prepare Artifacts */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Find Where I Was/Pods-Find Where I Was-artifacts.sh",
+				"${PODS_ROOT}/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework",
+				"${PODS_ROOT}/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework",
+			);
+			name = "[CP] Prepare Artifacts";
+			outputPaths = (
+				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Find Where I Was/Pods-Find Where I Was-artifacts.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5ED35AD4BEDA9D8C38AFC9F1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Find Where I Was/Pods-Find Where I Was-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Find Where I Was/Pods-Find Where I Was-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6C1F46A654B989F99878E729 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -258,12 +299,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Find Where I Was/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.11;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -339,12 +380,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Find Where I Was/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.10;
+				MARKETING_VERSION = 1.11;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -437,6 +478,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -495,6 +537,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;

@@ -11,6 +11,7 @@ import MapKit
 import CoreLocation
 import GoogleMobileAds
 import Firebase
+import UserMessagingPlatform
 
 //User Settings
 var settingDefaultMarkerdPointName : Int = 1
@@ -79,12 +80,84 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var autoPan: UISwitch!
     
+    func setPermissions()
+    {
+        // Create a UMPRequestParameters object.
+        let parameters = UMPRequestParameters()
+        // Set tag for under age of consent. Here false means users are not under age.
+        parameters.tagForUnderAgeOfConsent = false
+
+        // Request an update to the consent information.
+        UMPConsentInformation.sharedInstance.requestConsentInfoUpdate(
+            with: parameters,
+            completionHandler: { error in
+              if error != nil {
+                // Handle the error.
+              } else {
+                // The consent information state was updated.
+                // You are now ready to check if a form is
+                // available.
+                
+                
+                    // Request an update to the consent information.
+                    UMPConsentInformation.sharedInstance.requestConsentInfoUpdate(
+                        with: parameters,
+                        completionHandler: { [self] error in
+
+                          // The consent information has updated.
+                          if error != nil {
+                            // Handle the error.
+                          } else {
+                            // The consent information state was updated.
+                            // You are now ready to see if a form is available.
+                            let formStatus = UMPConsentInformation.sharedInstance.formStatus
+                            if formStatus == UMPFormStatus.available {
+                              loadForm()
+                            }
+                          }
+                        })
+                
+                
+              }
+            })
+        
+    }
+    
+    func loadForm() {
+        UMPConsentForm.load(completionHandler: { form, loadError in
+        if loadError != nil {
+          // Handle the error.
+        } else {
+          // Present the form. You can also hold on to the reference to present
+          // later.
+            if UMPConsentInformation.sharedInstance.consentStatus == UMPConsentStatus.required {
+            form?.present(
+                from: self,
+                completionHandler: { dismissError in
+                    if UMPConsentInformation.sharedInstance.consentStatus == UMPConsentStatus.obtained {
+                    // App can start requesting ads.
+                  }
+
+                })
+          } else {
+            // Keep the form available for changes to user consent.
+          }
+        }
+      })
+    }
+    
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         loadSettings()
+        
+        setPermissions()
+        
+
         
         if settingShowCompass
         {
@@ -116,7 +189,8 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         myMapView.showsUserLocation = true
         
-        
+                
+
         if FileManager.default.fileExists(atPath: pathToFile(kFileName)!.path)
         {
             

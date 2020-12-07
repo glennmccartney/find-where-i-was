@@ -1,1 +1,1 @@
-../../../GoogleUtilities/GoogleUtilities/SceneDelegateSwizzler/Private/GULSceneDelegateSwizzler.h
+../../../GoogleUtilities/GoogleUtilities/AppDelegateSwizzler/Public/GoogleUtilities/GULSceneDelegateSwizzler.h
