@@ -576,7 +576,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         }
         
         // Requests test ads on test devices.
-        let devices: [String] = ["7fc59f853d9dbd8193c2fb6dd425c689", "e17c6fd140eeebaa9972b80f81385489", kGADSimulatorID as! String]
+        //  d99495a2116b79d467a96c0f2293dce9    16/12/2020  iPhone 12 mini
+        
+        let devices: [String] = ["d99495a2116b79d467a96c0f2293dce9","7fc59f853d9dbd8193c2fb6dd425c689", "e17c6fd140eeebaa9972b80f81385489", kGADSimulatorID as! String]
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = devices
         
         interstitial.load(request)
