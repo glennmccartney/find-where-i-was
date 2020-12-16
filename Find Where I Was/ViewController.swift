@@ -12,6 +12,8 @@ import CoreLocation
 import GoogleMobileAds
 import Firebase
 import UserMessagingPlatform
+import AppTrackingTransparency
+import AdSupport
 
 //User Settings
 var settingDefaultMarkerdPointName : Int = 1
@@ -123,10 +125,45 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         NotificationCenter.default.addObserver(self, selector: #selector(UIApplicationDelegate.applicationDidBecomeActive(_:)), name:UIApplication.didBecomeActiveNotification, object:UIApplication.shared)
         
         //Review UMP Consent
-        reviewAndSetPermissions()
+        requestPermission()
+        
+        
         
         
         findUserLocation()
+    }
+    
+   
+    func requestPermission() {
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization { status in
+                
+                self.reviewAndSetPermissions()
+                
+                switch status {
+                case .authorized:
+                    // Tracking authorization dialog was shown
+                    // and we are authorized
+                    print("Authorized")
+                    
+                    // Now that we are authorized we can get the IDFA
+                    print(ASIdentifierManager.shared().advertisingIdentifier)
+                case .denied:
+                    // Tracking authorization dialog was
+                    // shown and permission is denied
+                    print("Denied")
+                case .notDetermined:
+                    // Tracking authorization dialog has not been shown
+                    print("Not Determined")
+                case .restricted:
+                    print("Restricted")
+                @unknown default:
+                    print("Unknown")
+                }
+            }
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     func setMapSettings()
@@ -167,11 +204,11 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         // Create a UMPRequestParameters object.
         let parameters = UMPRequestParameters()
         
-        let debugSettings = UMPDebugSettings()
+        //let debugSettings = UMPDebugSettings()
         //debugSettings.testDeviceIdentifiers = ["TEST-DEVICE-HASHED-ID"]
         //debugSettings.geography = UMPDebugGeography.notEEA  //Not in EU
-        debugSettings.geography = UMPDebugGeography.EEA  // in EU
-        parameters.debugSettings = debugSettings
+        //debugSettings.geography = UMPDebugGeography.EEA  // in EU
+        //parameters.debugSettings = debugSettings
         
         // Set tag for under age of consent. Here false means users are not under age.
         parameters.tagForUnderAgeOfConsent = false
@@ -540,7 +577,6 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         // Requests test ads on test devices.
         let devices: [String] = ["7fc59f853d9dbd8193c2fb6dd425c689", "e17c6fd140eeebaa9972b80f81385489", kGADSimulatorID as! String]
-        //request.testDevices = devices
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = devices
         
         interstitial.load(request)
